@@ -21,7 +21,7 @@
             <v-btn text>修改密码</v-btn>
         </v-row>
         <div class="btn-container">
-            <v-btn class="login-btn" elevation="2" color="primary" width="80%" rounded>登录</v-btn>
+            <v-btn class="login-btn" elevation="2" color="primary" width="80%" rounded @click="login">登录</v-btn>
         </div>
     </v-container>
 </template>
@@ -48,6 +48,9 @@
         methods: {
             registerAccount() {
                 this.$router.push('/register')
+            },
+            login() {
+                this.$router.push('/home')
             }
         }
     }
