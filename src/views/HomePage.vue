@@ -1,11 +1,9 @@
 <template>
     <v-app>
         <v-main>
-            <v-container fluid>
-                <router-view/>
-            </v-container>
+            <router-view/>
         </v-main>
-        <bottom-nav/>
+        <bottom-nav v-on:changeRoute="changeRoute"/>
     </v-app>
 </template>
 
@@ -15,6 +13,23 @@
     export default {
         name: "HomePage",
         components: {BottomNav},
+        methods: {
+            changeRoute(nav_value) {
+                switch (nav_value) {
+                    case 0:
+                        this.$router.push('/home/main')
+                        break
+                    case 1:
+                        this.$router.push('/home/notice')
+                        break
+                    case 2:
+                        this.$router.push('/home/order')
+                        break
+                    case 3:
+                        this.$router.push('/home/settings')
+                }
+            }
+        }
     }
 </script>
 

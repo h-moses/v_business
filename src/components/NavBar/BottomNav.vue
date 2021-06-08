@@ -1,5 +1,5 @@
 <template>
-    <v-bottom-navigation :value="nav_value" color="primary" shift grow>
+    <v-bottom-navigation v-model="nav_value" color="primary" shift grow>
         <v-btn v-for="(item,index) in navItem" :key="index">
             <span>{{item.name}}</span>
             <v-icon>{{item.icon}}</v-icon>
@@ -19,6 +19,14 @@
                     {'name': '出门单','icon': 'mdi-arrow-right-box'},
                     {'name': '设置','icon': 'mdi-hexagon-slice-6'}
                 ]
+            }
+        },
+        watch: {
+            nav_value: {
+                deep: true,
+                handler(val) {
+                    this.$emit('changeRoute',val)
+                }
             }
         }
     }
