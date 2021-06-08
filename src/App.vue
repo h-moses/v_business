@@ -1,19 +1,14 @@
 <template>
-  <v-app>
-      <v-container style="padding: 0">
-          <router-view/>
-      </v-container>
-  </v-app>
-
+    <v-app>
+        <v-main>
+            <router-view/>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
 
 export default {
-  name: 'App',
-
-  data: () => ({
-    //
-  }),
+  name: 'App'
 };
 </script>
