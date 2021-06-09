@@ -22,6 +22,7 @@ const routes = [
     {
         path: '/home',
         component: HomePage,
+        redirect: '/home/main',
         children: [
             {
                 path: 'main',

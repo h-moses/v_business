@@ -1,0 +1,41 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 2593128 */
+  /* Color fonts */
+  src: 
+       url('iconfont.woff2?t=1623254350427') format('woff2'),
+       url('iconfont.woff?t=1623254350427') format('woff'),
+       url('iconfont.ttf?t=1623254350427') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont-kucun:before {
+  content: "\e638";
+}
+
+.iconfont-shuju:before {
+  content: "\e6ad";
+}
+
+.iconfont-shangpin:before {
+  content: "\e639";
+}
+
+.iconfont-yingshou:before {
+  content: "\e839";
+}
+
+.iconfont-dianpu1:before {
+  content: "\e603";
+}
+
+.iconfont-icon--copy:before {
+  content: "\e60f";
+}
+

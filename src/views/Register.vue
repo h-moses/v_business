@@ -12,7 +12,7 @@
           <v-card class="card_container" height="400" shaped>
               <v-form class="register-form">
                   <v-input :value="registerForm.mcName">
-                      <v-text-field label="用户名" prepend-inner-icon="mdi-account" hint="最多6位字符" maxlength="6" :rules="[rules.required,rules.name]" dense clearable/>
+                      <v-text-field label="用户名" prepend-inner-icon="mdi-account" hint="最多6位字符" maxlength="6" :rules="[rules.required]" dense clearable/>
                   </v-input>
                   <v-input :value="registerForm.mcRealName">
                       <v-text-field label="姓名" prepend-inner-icon="mdi-information" hint="最多8位字符" maxlength="8" :rules="[rules.required]" dense clearable/>
@@ -24,7 +24,7 @@
                       <v-text-field label="邮箱" prepend-inner-icon="mdi-email" :rules="[rules.required,rules.email]" dense clearable/>
                   </v-input>
                   <v-input :value="registerForm.mcPwd">
-                      <v-text-field label="密码" prepend-inner-icon="mdi-lock-outline" hint="最多12位字符" maxlength="12" :rules="[rules.required,rules.pwd]" dense clearable :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd"/>
+                      <v-text-field label="密码" prepend-inner-icon="mdi-lock-outline" hint="最多12位字符" maxlength="12" :rules="[rules.required]" dense clearable :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd"/>
                   </v-input>
               </v-form>
           </v-card>

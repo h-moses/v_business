@@ -1,0 +1,51 @@
+{
+  "id": "2593128",
+  "name": "vue-shop",
+  "font_family": "iconfont",
+  "css_prefix_text": "iconfont-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6820560",
+      "name": "库存",
+      "font_class": "kucun",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "10711354",
+      "name": "数据",
+      "font_class": "shuju",
+      "unicode": "e6ad",
+      "unicode_decimal": 59053
+    },
+    {
+      "icon_id": "13454865",
+      "name": "商品",
+      "font_class": "shangpin",
+      "unicode": "e639",
+      "unicode_decimal": 58937
+    },
+    {
+      "icon_id": "13630496",
+      "name": "营收",
+      "font_class": "yingshou",
+      "unicode": "e839",
+      "unicode_decimal": 59449
+    },
+    {
+      "icon_id": "16934218",
+      "name": "店铺",
+      "font_class": "dianpu1",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "18086504",
+      "name": "订单",
+      "font_class": "icon--copy",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    }
+  ]
+}
