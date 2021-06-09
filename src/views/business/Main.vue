@@ -40,6 +40,8 @@
                 </v-btn>
             </v-col>
         </v-row>
+        <div class="merchant-learn">商家学习</div>
+
     </v-container>
 </template>
 
@@ -104,7 +106,7 @@
 
     .function-col {
         text-align: center;
-        height: 6rem;
+        height: 11rem;
     }
 
     .manage-btn {
@@ -120,6 +122,11 @@
         i {
             font-size: 2rem;
         }
+    }
+
+    .merchant-learn {
+        font-weight: bold;
+        font-size: 1.1rem;
     }
 
 </style>
