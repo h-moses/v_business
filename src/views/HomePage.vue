@@ -1,9 +1,9 @@
 <template>
     <v-app>
-        <v-main>
-            <router-view/>
-        </v-main>
-        <bottom-nav v-on:changeRoute="changeRoute"/>
+        <router-view/>
+       <v-footer app>
+           <bottom-nav v-on:changeRoute="changeRoute"/>
+       </v-footer>
     </v-app>
 </template>
 
@@ -34,5 +34,7 @@
 </script>
 
 <style lang="less" scoped>
-
+    .v-footer {
+        padding: 0;
+    }
 </style>

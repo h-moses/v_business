@@ -41,7 +41,7 @@
             </v-col>
         </v-row>
         <div class="merchant-learn">商家学习</div>
-        <v-list>
+        <v-list two-line>
             <v-list-item>
                 <v-list-item-avatar>
                     <v-img src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"></v-img>
@@ -66,14 +66,14 @@
                 functionList: [
                     [
                         {name: '店铺管理', icon: 'iconfont iconfont-dianpu1'},
-                        {name: '商品管理', icon: 'iconfont iconfont-shangpin'},
-                    ],
-                    [
-                        {name: '订单管理', icon: 'iconfont iconfont-icon--copy'},
                         {name: '库存管理', icon: 'iconfont iconfont-kucun'}
                     ],
                     [
-                        {name: '经营数据', icon: 'iconfont iconfont-shuju'},
+                        {name: '商品管理', icon: 'iconfont iconfont-shangpin'},
+                        {name: '经营数据', icon: 'iconfont iconfont-shuju'}
+                    ],
+                    [
+                        {name: '订单管理', icon: 'iconfont iconfont-icon--copy'},
                         {name: '店铺营收', icon: 'iconfont iconfont-yingshou'}
                     ]
                 ],
