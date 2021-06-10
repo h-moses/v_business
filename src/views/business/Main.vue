@@ -41,7 +41,20 @@
             </v-col>
         </v-row>
         <div class="merchant-learn">商家学习</div>
-
+        <v-list>
+            <v-list-item>
+                <v-list-item-avatar>
+                    <v-img src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"></v-img>
+                </v-list-item-avatar>
+                <v-list-item-content>
+                    <v-list-item-title>了解果星Planet</v-list-item-title>
+                    <v-list-item-subtitle>快速了解</v-list-item-subtitle>
+                </v-list-item-content>
+                <v-list-item-action>
+                    <v-btn outlined rounded color="primary">去完成</v-btn>
+                </v-list-item-action>
+            </v-list-item>
+        </v-list>
     </v-container>
 </template>
 
@@ -63,7 +76,11 @@
                         {name: '经营数据', icon: 'iconfont iconfont-shuju'},
                         {name: '店铺营收', icon: 'iconfont iconfont-yingshou'}
                     ]
-                ]
+                ],
+                mcLearning: {
+                    title: '了解果星Planet',
+                    subtitle: '快速了解'
+                }
             }
         }
     }
