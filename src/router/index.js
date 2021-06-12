@@ -8,6 +8,7 @@ import Notice from "../views/business/Notice"
 import Order from "../views/business/Order"
 import Settings from "../views/business/Settings"
 import AmendPwd from "../views/business/settings/AmendPwd";
+import About from "../views/business/settings/About";
 
 Vue.use(VueRouter)
 
@@ -49,7 +50,7 @@ const routes = [
     },
     {
         path: '/about',
-
+        component: About
     }
 ]
 

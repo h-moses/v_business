@@ -44,8 +44,10 @@
                         this.$router.push('/amendPwd')
                         break
                     case '关于我们':
+                        this.$router.push('/about')
                         break
                     case '退出登录':
+                        this.$router.push('/')
                         break
                 }
             }
