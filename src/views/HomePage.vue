@@ -1,6 +1,8 @@
 <template>
     <v-app>
-        <router-view/>
+        <v-main style="padding-top: 0">
+            <router-view/>
+        </v-main>
        <v-footer app>
            <bottom-nav v-on:changeRoute="changeRoute"/>
        </v-footer>
