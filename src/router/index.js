@@ -7,6 +7,7 @@ import Main from "../views/business/Main"
 import Notice from "../views/business/Notice"
 import Order from "../views/business/Order"
 import Settings from "../views/business/Settings"
+import AmendPwd from "../views/business/settings/AmendPwd";
 
 Vue.use(VueRouter)
 
@@ -38,9 +39,17 @@ const routes = [
             },
             {
                 path: 'settings',
-                component: Settings
+                component: Settings,
             },
         ]
+    },
+    {
+        path: '/amendPwd',
+        component: AmendPwd
+    },
+    {
+        path: '/about',
+
     }
 ]
 

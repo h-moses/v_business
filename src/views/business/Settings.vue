@@ -11,7 +11,7 @@
         <v-divider/>
         <v-list>
             <v-list-item v-for="(item,index) in settingItem" :key="index">
-             <v-btn class="list-btn" text>
+             <v-btn class="list-btn" text @click="pushRoute(item)">
                  <v-list-item-content>
                      <v-list-item-title>{{item}}</v-list-item-title>
                  </v-list-item-content>
@@ -35,6 +35,19 @@
                     '关于我们',
                     '退出登录'
                 ]
+            }
+        },
+        methods: {
+            pushRoute(name) {
+                switch (name) {
+                    case '修改密码':
+                        this.$router.push('/amendPwd')
+                        break
+                    case '关于我们':
+                        break
+                    case '退出登录':
+                        break
+                }
             }
         }
     }
