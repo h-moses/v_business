@@ -8,7 +8,6 @@
             </v-app-bar-nav-icon>
             <v-app-bar-title>关于我们</v-app-bar-title>
         </v-app-bar>
-<!--        <v-divider/>-->
         <v-card
                 class="mx-0"
                 flat

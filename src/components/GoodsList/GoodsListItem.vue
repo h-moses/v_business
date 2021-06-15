@@ -1,12 +1,10 @@
 <template>
-    <v-container fluid>
-        Order
-    </v-container>
+
 </template>
 
 <script>
     export default {
-        name: "Order"
+        name: "GoodsListItem"
     }
 </script>
 

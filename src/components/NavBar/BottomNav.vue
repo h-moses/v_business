@@ -16,7 +16,6 @@
                 navItem: [
                     {'name': '首页','icon': 'mdi-home-minus'},
                     {'name': '消息','icon': 'mdi-message-processing'},
-                    {'name': '出门单','icon': 'mdi-arrow-right-box'},
                     {'name': '设置','icon': 'mdi-hexagon-slice-6'}
                 ]
             }

@@ -34,7 +34,7 @@
         </v-row>
         <v-row dense>
             <v-col class="function-col" v-for="(item,index) in functionList" :key="index">
-                <v-btn class="manage-btn" text v-for="(children,index) in item" :key="index">
+                <v-btn class="manage-btn" text v-for="(children,index) in item" :key="index" @click="pushRoute(children.name)">
                     <i :class="children.icon"></i>
                     <div>{{children.name}}</div>
                 </v-btn>
@@ -80,6 +80,25 @@
                 mcLearning: {
                     title: '了解果星Planet',
                     subtitle: '快速了解'
+                }
+            }
+        },
+        methods: {
+            pushRoute(name) {
+                switch (name) {
+                    case '店铺管理':
+                        break
+                    case '库存管理':
+                        break
+                    case '商品管理':
+                        this.$router.push('/goods')
+                        break
+                    case '经营数据':
+                        break
+                    case '订单管理':
+                        break
+                    case '店铺营收':
+                        break
                 }
             }
         }

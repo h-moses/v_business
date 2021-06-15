@@ -25,10 +25,8 @@
                         this.$router.push('/home/notice')
                         break
                     case 2:
-                        this.$router.push('/home/order')
-                        break
-                    case 3:
                         this.$router.push('/home/settings')
+                        break
                 }
             }
         }

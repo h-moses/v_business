@@ -5,10 +5,10 @@ import Register from "../views/Register"
 import HomePage from "../views/HomePage"
 import Main from "../views/business/Main"
 import Notice from "../views/business/Notice"
-import Order from "../views/business/Order"
 import Settings from "../views/business/Settings"
-import AmendPwd from "../views/business/settings/AmendPwd";
-import About from "../views/business/settings/About";
+import AmendPwd from "../views/business/settings/AmendPwd"
+import About from "../views/business/settings/About"
+import Goods from "../views/business/index/Goods"
 
 Vue.use(VueRouter)
 
@@ -35,10 +35,6 @@ const routes = [
                 component: Notice
             },
             {
-                path: 'order',
-                component: Order
-            },
-            {
                 path: 'settings',
                 component: Settings,
             },
@@ -51,6 +47,10 @@ const routes = [
     {
         path: '/about',
         component: About
+    },
+    {
+        path: '/goods',
+        component: Goods
     }
 ]
 

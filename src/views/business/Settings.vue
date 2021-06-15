@@ -1,28 +1,30 @@
 <template>
-    <v-container fluid>
-        <v-app-bar
-                color="white"
-                dense
-                flat
-                app
-        >
-            <v-app-bar-title>系统设置</v-app-bar-title>
-        </v-app-bar>
-        <v-divider/>
-        <v-list>
-            <v-list-item v-for="(item,index) in settingItem" :key="index">
-             <v-btn class="list-btn" text @click="pushRoute(item)">
-                 <v-list-item-content>
-                     <v-list-item-title>{{item}}</v-list-item-title>
-                 </v-list-item-content>
-                 <v-spacer/>
-                 <v-list-item-action>
-                     <v-icon>mdi-chevron-right</v-icon>
-                 </v-list-item-action>
-             </v-btn>
-            </v-list-item>
-        </v-list>
-    </v-container>
+    <v-main>
+        <v-container fluid>
+            <v-app-bar
+                    color="white"
+                    dense
+                    flat
+                    app
+            >
+                <v-app-bar-title>系统设置</v-app-bar-title>
+            </v-app-bar>
+            <v-divider/>
+            <v-list>
+                <v-list-item v-for="(item,index) in settingItem" :key="index">
+                    <v-btn class="list-btn" text @click="pushRoute(item)">
+                        <v-list-item-content>
+                            <v-list-item-title>{{item}}</v-list-item-title>
+                        </v-list-item-content>
+                        <v-spacer/>
+                        <v-list-item-action>
+                            <v-icon>mdi-chevron-right</v-icon>
+                        </v-list-item-action>
+                    </v-btn>
+                </v-list-item>
+            </v-list>
+        </v-container>
+    </v-main>
 </template>
 
 <script>
