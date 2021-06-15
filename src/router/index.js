@@ -9,6 +9,7 @@ import Settings from "../views/business/Settings"
 import AmendPwd from "../views/business/settings/AmendPwd"
 import About from "../views/business/settings/About"
 import Goods from "../views/business/index/Goods"
+import AddGoods from "../views/business/index/AddGoods"
 
 Vue.use(VueRouter)
 
@@ -51,6 +52,10 @@ const routes = [
     {
         path: '/goods',
         component: Goods
+    },
+    {
+        path: '/add',
+        component: AddGoods
     }
 ]
 

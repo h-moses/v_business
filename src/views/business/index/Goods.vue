@@ -17,7 +17,7 @@
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                     <v-tab-item v-for="item in tabTitle" :key="item.name">
-
+                        <goods-list/>
                     </v-tab-item>
                 </v-tabs-items>
             </v-container>
@@ -32,8 +32,11 @@
 </template>
 
 <script>
+
+    import GoodsList from "../../../components/GoodsList/GoodsList";
     export default {
         name: "Goods",
+        components: {GoodsList},
         data() {
             return {
                 tab: null,
