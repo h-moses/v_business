@@ -24,8 +24,8 @@
         </v-main>
         <v-footer app color="white" fixed>
             <v-row justify="space-around">
-                <v-btn rounded color="primary">添加商品</v-btn>
-                <v-btn rounded color="primary" outlined>添加好货</v-btn>
+                <v-btn rounded color="primary" @click="addGoods">添加商品</v-btn>
+                <v-btn rounded color="primary" outlined @click="addGoods">添加好货</v-btn>
             </v-row>
         </v-footer>
     </v-app>
@@ -33,7 +33,7 @@
 
 <script>
 
-    import GoodsList from "../../../components/GoodsList/GoodsList";
+    import GoodsList from "../../../components/GoodsList/GoodsList"
     export default {
         name: "Goods",
         components: {GoodsList},
@@ -52,6 +52,9 @@
             },
             handleSearch() {
                 alert("search")
+            },
+            addGoods() {
+                this.$router.push('/goods/add')
             }
         }
     }

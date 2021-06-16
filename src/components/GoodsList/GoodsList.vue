@@ -23,7 +23,7 @@
                                         <v-icon>mdi-dots-horizontal</v-icon>
                                     </v-btn>
                                 </template>
-                                <v-row align="center" justify="center">
+                                <v-row class="op-row" align="center" justify="center">
                                     <v-btn text>编辑</v-btn>
                                     <v-divider vertical/>
                                     <v-btn text>下架</v-btn>
@@ -72,6 +72,10 @@
     .v-menu__content {
         width: 200px;
         height: 36px;
+    }
+
+    .op-row {
+        margin: 0;
     }
 
 </style>
