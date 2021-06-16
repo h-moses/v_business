@@ -10,18 +10,114 @@
         </v-app-bar>
         <v-main>
             <v-container fluid>
+                <v-card class="mx-auto text-center" flat>
+                    <v-card-title>
+                        <v-row>
+                            <v-subheader>单位（元）</v-subheader>
+                            <v-spacer/>
+                            <v-menu
+                                    ref="menu"
+                                    v-model="menu"
+                                    :close-on-content-click="false"
+                                    :return-value.sync="date"
+                                    transition="scale-transition"
+                                    offset-y
+                                    max-width="290px"
+                                    min-width="auto"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                            v-model="date"
+                                            label="月份"
+                                            prepend-icon="mdi-calendar"
+                                            append-icon="$dropdown"
+                                            readonly
+                                            v-bind="attrs"
+                                            v-on="on"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                        v-model="date"
+                                        type="month"
+                                        no-title
+                                        scrollable
+                                >
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                            text
+                                            color="primary"
+                                            @click="menu = false"
+                                    >
+                                        Cancel
+                                    </v-btn>
+                                    <v-btn
+                                            text
+                                            color="primary"
+                                            @click="$refs.menu.save(date)"
+                                    >
+                                        OK
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-menu>
+                        </v-row>
+                    </v-card-title>
+                    <v-card-text>
+                        <v-sheet>
+                            <v-sparkline
+                                    :value="value"
+                                    height="150"
+                                    padding="12"
+                                    smooth
+                                    type="bar"
+                                    auto-draw
+                            >
+                                <template v-slot:label="item">
+                                    {{ item.value }}
+                                </template>
+                            </v-sparkline>
+                        </v-sheet>
+                    </v-card-text>
+                </v-card>
+                <v-divider/>
+                <v-list>
+                    <v-list-item>
+                        <template #default>
+                            <v-row justify="space-around">
+                                <v-col>
+                                    <div class="balance-title">账户余额(元)</div>
+                                    <span class="balance-data">17224</span>
+                                </v-col>
+                                <v-col>
+                                    <div class="balance-title">冻结金额(元)</div>
+                                    <span class="balance-data">1000</span>
+                                </v-col>
 
+                            </v-row>
+                        </template>
+                    </v-list-item>
+                </v-list>
             </v-container>
         </v-main>
     </v-app>
 </template>
 
 <script>
+
     export default {
         name: "StoreSales",
         data() {
             return {
-
+                value: [
+                    423,
+                    446,
+                    675,
+                    510,
+                    590,
+                    610,
+                    760,
+                ],
+                date: new Date().toISOString().substr(0, 7),
+                menu: false,
             }
         },
         methods: {
@@ -33,5 +129,20 @@
 </script>
 
 <style lang="less" scoped>
+    /deep/ svg {
+        color: rgb(25,102,255);
+    }
 
+    .v-input {
+        height: 4rem;
+    }
+
+    .balance-title {
+        font-size: 0.875rem;
+        font-family: '微软雅黑',sans-serif;
+    }
+
+    .balance-data {
+        font-weight: bold;
+    }
 </style>

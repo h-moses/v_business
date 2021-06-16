@@ -98,6 +98,7 @@
                     case '订单管理':
                         break
                     case '店铺营收':
+                        this.$router.push('/store/sales')
                         break
                 }
             }
