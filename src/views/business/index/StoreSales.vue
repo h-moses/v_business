@@ -14,7 +14,7 @@
                     <v-card-title>
                         <v-row>
                             <v-subheader>单位（元）</v-subheader>
-                            <v-spacer/>
+<!--                            <v-spacer/>-->
                             <v-menu
                                     ref="menu"
                                     v-model="menu"

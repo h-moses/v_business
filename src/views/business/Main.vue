@@ -94,6 +94,7 @@
                         this.$router.push('/goods')
                         break
                     case '经营数据':
+                        this.$router.push('/business/data')
                         break
                     case '订单管理':
                         break
