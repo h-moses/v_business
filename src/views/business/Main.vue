@@ -87,6 +87,7 @@
             pushRoute(name) {
                 switch (name) {
                     case '店铺管理':
+                        this.$router.push('/shop')
                         break
                     case '库存管理':
                         this.$router.push('/store')
