@@ -89,6 +89,7 @@
                     case '店铺管理':
                         break
                     case '库存管理':
+                        this.$router.push('/store')
                         break
                     case '商品管理':
                         this.$router.push('/goods')
