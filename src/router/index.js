@@ -14,6 +14,7 @@ import StoreSales from "../views/business/index/StoreSales"
 import BusinessData from "../views/business/index/BusinessData"
 import InventoryManagement from "../views/business/index/InventoryManagement"
 import Shop from "../views/business/index/Shop"
+import OrderManagement from "../views/business/index/OrderManagement"
 
 Vue.use(VueRouter)
 
@@ -76,6 +77,10 @@ const routes = [
     {
         path: '/shop',
         component: Shop
+    },
+    {
+        path: '/order',
+        component: OrderManagement
     }
 ]
 

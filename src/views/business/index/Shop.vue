@@ -45,7 +45,7 @@
                                                 <template v-slot:activator="{ on, attrs }">
                                                     <v-text-field
                                                             v-model="date"
-                                                            label="Picker in menu"
+                                                            label="注册时间"
                                                             prepend-inner-icon="mdi-calendar"
                                                             readonly
                                                             v-bind="attrs"
