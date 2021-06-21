@@ -101,7 +101,7 @@
                     </v-row>
                     <v-divider/>
                     <v-row class="third-row">
-                        <v-col cols="6" v-for="item in second_row" :key="item">
+                        <v-col cols="6" v-for="item in seventh_row" :key="item">
                             <v-subheader>{{item}}</v-subheader>
                             <v-list-item-title>36</v-list-item-title>
                         </v-col>
@@ -130,6 +130,9 @@
                 ],
                 sixth_row: [
                     '客户统计','更多'
+                ],
+                seventh_row: [
+                    '今日下单客户数(人)','复购客户占比'
                 ],
                 gradient: ['#f72047', '#ffd200', '#1feaea'],
                 value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],

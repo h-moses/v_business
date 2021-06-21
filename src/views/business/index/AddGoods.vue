@@ -65,13 +65,6 @@
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field prefix="包装材料" dense clearable/>
-                                </v-input>
-                            </template>
-                        </v-list-item>
-                        <v-list-item>
-                            <template #default>
-                                <v-input>
                                     <v-text-field placeholder="给商品起个好价格" prefix="单价" suffix="元/公斤" dense clearable/>
                                 </v-input>
                             </template>
