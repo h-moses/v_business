@@ -21,16 +21,14 @@
                         </v-list-item>
                         <v-list-item>
                             <template #default>
-                                <v-input>
-                                    <v-file-input
-                                            chips
-                                            multiple
-                                            shaped
-                                            prepend-icon="mdi-upload"
-                                            type="image/*"
-                                            label="上传图片"
-                                    ></v-file-input>
-                                </v-input>
+                                <v-file-input
+                                        chips
+                                        multiple
+                                        shaped
+                                        prepend-icon="mdi-upload"
+                                        type="image/*"
+                                        label="上传图片"
+                                ></v-file-input>
                             </template>
                         </v-list-item>
                     </v-list>

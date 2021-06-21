@@ -73,21 +73,6 @@
                                             </v-card-text>
                                         </v-card>
                                     </v-dialog>
-                                    <v-divider vertical/>
-                                    <v-dialog v-model="delete_dialog" persistent max-width="290" transition="dialog-bottom-transition">
-                                        <template v-slot:activator="{on,attrs}">
-                                            <v-btn v-bind="attrs" v-on="on" text>删除</v-btn>
-                                        </template>
-                                        <v-card>
-                                            <v-card-title>删除库存</v-card-title>
-                                            <v-card-text class="dialog-card">确认删除该库存?</v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer/>
-                                                <v-btn text @click="delete_dialog = false">取消</v-btn>
-                                                <v-btn text @click="deleteStore">确认</v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
                                 </v-row>
                             </v-menu>
                         </v-list-item-action>
@@ -106,7 +91,6 @@
                 card_title: [
                     '商品总数','负库存数','库存预警'
                 ],
-                delete_dialog: false,
                 edit_dialog: false,
                 editRules: {
                     required: value => !!value || '不能为空'
@@ -116,9 +100,6 @@
         methods: {
             backRoute() {
                 this.$router.back()
-            },
-            deleteStore() {
-
             },
             editStore() {
 
