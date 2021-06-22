@@ -8,12 +8,12 @@
                 transition="scale-transition"
                 width="100"/>
 
-        <v-form class="login-form">
-            <v-input :value="loginForm.mcName">
-                <v-text-field label="手机号" :rules="[rules.required,rules.phone]" dense clearable prepend-inner-icon="mdi-cellphone"/>
+        <v-form class="login-form" value ref="form">
+            <v-input v-model="loginForm.mcPhone" >
+                <v-text-field v-model="loginForm.mcPhone" label="手机号" :rules="[rules.required,rules.phone]" dense clearable prepend-inner-icon="mdi-cellphone"/>
             </v-input>
-            <v-input :value="loginForm.mcPwd" hint="密码">
-                <v-text-field label="密码" maxlength="12" :rules="[rules.required]" dense clearable prepend-inner-icon="mdi-lock-outline" :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd"/>
+            <v-input v-model="loginForm.mcPwd" hint="密码">
+                <v-text-field v-model="loginForm.mcPwd" label="密码" maxlength="12" :rules="[rules.required]" dense clearable prepend-inner-icon="mdi-lock-outline" :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" @keydown.enter="login"/>
             </v-input>
         </v-form>
         <v-row class="register-amend" align="center" justify="space-between">
@@ -27,12 +27,17 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+    import { Toast } from 'mint-ui'
+
+    Vue.use(Toast)
+
     export default {
         name: "Login",
         data() {
             return {
                 loginForm: {
-                    mcName: '',
+                    mcPhone: '',
                     mcPwd: ''
                 },
                 showPwd: false,
@@ -49,8 +54,17 @@
             registerAccount() {
                 this.$router.push('/register')
             },
-            login() {
-                this.$router.push('/home')
+            async login() {
+                const {data:res} = await this.$http.post('merchant/login',this.loginForm)
+                if (res.code === 200) {
+                    await this.$router.push({name: 'Home',params: {mcPhone: this.loginForm.mcPhone}})
+                }else {
+                    Toast({
+                        message: '密码错误',
+                        position: 'bottom'
+                    })
+                    this.$refs.form.reset()
+                }
             }
         }
     }
@@ -67,7 +81,7 @@
 
     .login-form {
         width: 80%;
-        margin: 70% auto 0;
+        margin: 80% auto 0;
     }
 
     .register-amend {
