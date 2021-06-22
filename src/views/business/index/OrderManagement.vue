@@ -16,7 +16,7 @@
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                     <v-tab-item :key="item" v-for="item in tabTitle">
-                        <order-list-item/>
+                        <order-list-item :order-list="orderList"/>
                     </v-tab-item>
                 </v-tabs-items>
             </v-container>
@@ -25,8 +25,11 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import OrderListItem from "../../../components/OrderListItem/OrderListItem";
+    import {Toast} from 'mint-ui'
 
+    Vue.use(Toast)
     export default {
         name: "OrderManagement",
         components: {OrderListItem},
@@ -35,12 +38,45 @@
                 tab: null,
                 tabTitle: [
                     '全部', '待付款', '待提货', '已完成'
-                ]
+                ],
+                orderList: null
+            }
+        },
+        created() {
+            this.getOrder(null)
+        },
+        watch: {
+            tab: {
+                deep: true,
+                handler(val) {
+                    switch (val) {
+                        case 1:
+                            this.getOrder(0)
+                            break
+                        case 2:
+                            this.getOrder(1)
+                            break
+                        case 3:
+                            this.getOrder(2)
+                            break
+                    }
+                }
             }
         },
         methods: {
             backRoute() {
                 this.$router.back()
+            },
+            async getOrder(goodsState) {
+                const {data:res} = await this.$http.post('/order/query',{shopId:window.sessionStorage.getItem('shopId'),orderState:goodsState})
+                if (res.code !== 200) {
+                    Toast({
+                        message: '获取失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    this.orderList = res.data.order
+                }
             }
         }
     }

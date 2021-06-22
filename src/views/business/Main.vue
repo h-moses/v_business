@@ -94,10 +94,10 @@
                 sevenDayOrder: null
             }
         },
-        created() {
-            this.getMerchantInfo()
-            this.getShopInfo()
-            this.getData()
+        async created() {
+            await this.getMerchantInfo()
+            await this.getShopInfo()
+            await this.getData()
         },
         methods: {
             pushRoute(name) {
@@ -123,7 +123,6 @@
                 }
             },
             async getMerchantInfo() {
-                window.sessionStorage.setItem("mcPhone",this.$route.query.mcPhone)
                 const {data: res} = await this.$http.post('/merchant/info', {mcPhone: window.sessionStorage.getItem("mcPhone")})
                 if (res.code !== 200) {
                     Toast({

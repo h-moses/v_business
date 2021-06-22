@@ -60,6 +60,7 @@
             async login() {
                 const {data: res} = await this.$http.post('merchant/login', this.loginForm)
                 if (res.code === 200) {
+                    window.sessionStorage.setItem("mcPhone",this.loginForm.mcPhone)
                     await this.$router.push({path: '/home/main', query: {mcPhone: this.loginForm.mcPhone}})
                 } else {
                     Toast({
