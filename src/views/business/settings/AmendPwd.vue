@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app flat color="white">
+        <v-app-bar app color="white" flat>
             <v-app-bar-nav-icon @click="backRoute">
                 <template #default>
                     <v-icon>mdi-arrow-left</v-icon>
@@ -13,13 +13,17 @@
             <v-container fluid>
                 <v-form>
                     <v-input :value="amendForm.originPwd">
-                        <v-text-field label="原密码" maxlength="12" :rules="[rules.required]" dense clearable :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd"/>
+                        <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" clearable
+                                      dense label="原密码"
+                                      maxlength="12"/>
                     </v-input>
                     <v-input :value="amendForm.newPwd" hint="密码">
-                        <v-text-field label="新密码" maxlength="12" :rules="[rules.required]" dense clearable :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd"/>
+                        <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" clearable
+                                      dense label="新密码"
+                                      maxlength="12"/>
                     </v-input>
                 </v-form>
-                <v-btn class="amend-btn" elevation="2" width="100%" color="primary" rounded @click="amend">修改</v-btn>
+                <v-btn @click="amend" class="amend-btn" color="primary" elevation="2" rounded width="100%">修改</v-btn>
             </v-container>
         </v-main>
     </v-app>

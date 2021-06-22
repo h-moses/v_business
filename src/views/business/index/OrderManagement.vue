@@ -1,6 +1,6 @@
 <template>
     <div id="order-management">
-        <v-app-bar app flat color="white">
+        <v-app-bar app color="white" flat>
             <v-app-bar-nav-icon @click="backRoute">
                 <template #default>
                     <v-icon>mdi-arrow-left</v-icon>
@@ -10,12 +10,12 @@
         </v-app-bar>
         <v-main>
             <v-container fluid style="padding: 0">
-                <v-tabs v-model="tab" grow>
+                <v-tabs grow v-model="tab">
                     <v-tabs-slider color="primary"></v-tabs-slider>
-                    <v-tab v-for="item in tabTitle" :key="item">{{item}}</v-tab>
+                    <v-tab :key="item" v-for="item in tabTitle">{{item}}</v-tab>
                 </v-tabs>
                 <v-tabs-items v-model="tab">
-                    <v-tab-item v-for="item in tabTitle" :key="item">
+                    <v-tab-item :key="item" v-for="item in tabTitle">
                         <order-list-item/>
                     </v-tab-item>
                 </v-tabs-items>
@@ -26,6 +26,7 @@
 
 <script>
     import OrderListItem from "../../../components/OrderListItem/OrderListItem";
+
     export default {
         name: "OrderManagement",
         components: {OrderListItem},
@@ -33,7 +34,7 @@
             return {
                 tab: null,
                 tabTitle: [
-                    '全部','待付款','待提货','已完成'
+                    '全部', '待付款', '待提货', '已完成'
                 ]
             }
         },
@@ -54,6 +55,7 @@
     .row {
         margin: 0;
     }
+
     .col {
         padding-left: 0;
     }

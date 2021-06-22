@@ -1,6 +1,6 @@
 <template>
     <div id="inventory-management">
-        <v-app-bar app flat color="white">
+        <v-app-bar app color="white" flat>
             <v-app-bar-nav-icon @click="backRoute">
                 <template #default>
                     <v-icon>mdi-arrow-left</v-icon>
@@ -13,9 +13,13 @@
                 <v-card tile>
                     <template #default>
                         <v-row>
-                            <v-col v-for="(item,index) in card_title" :key="index">
+                            <v-col :key="index" v-for="(item,index) in card_title">
                                 <v-card-subtitle>{{item}}</v-card-subtitle>
-                                <v-card-text :style="index === 0 ? {} : index === 1 ? {color: 'red'} : {color: 'orange'}">123</v-card-text>
+                                <v-card-text :style="index === 0 ? {} : index === 1 ? {color: 'red'} : {color: 'orange'}">
+                                    <span v-if="index === 0">{{goodsCount}}</span>
+                                    <span v-else-if="index === 1">{{zeroStore}}</span>
+                                    <span v-else-if="index === 2">{{warningStore}}</span>
+                                </v-card-text>
                             </v-col>
                         </v-row>
                     </template>
@@ -39,16 +43,16 @@
                             </v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-action>
-                            <v-menu top offset-y transition="scale-transition">
+                            <v-menu offset-y top transition="scale-transition">
                                 <template v-slot:activator="{ on, attrs }">
-                                    <v-btn v-bind="attrs" v-on="on" icon>
+                                    <v-btn icon v-bind="attrs" v-on="on">
                                         <v-icon>mdi-dots-horizontal</v-icon>
                                     </v-btn>
                                 </template>
-                                <v-row class="op-row" align="center" justify="center">
-                                    <v-dialog v-model="edit_dialog" persistent max-width="500" transition="dialog-bottom-transition">
+                                <v-row align="center" class="op-row" justify="center">
+                                    <v-dialog max-width="500" persistent transition="dialog-bottom-transition" v-model="edit_dialog">
                                         <template v-slot:activator="{on,attrs}">
-                                            <v-btn v-bind="attrs" v-on="on" text>编辑</v-btn>
+                                            <v-btn text v-bind="attrs" v-on="on">编辑</v-btn>
                                         </template>
                                         <v-card>
                                             <v-card-title>
@@ -58,17 +62,17 @@
                                                 <v-container>
                                                     <v-row>
                                                         <v-col cols="12" sm="12">
-                                                            <v-text-field label="商品名称" :rules="[editRules.required]"></v-text-field>
+                                                            <v-text-field :rules="[editRules.required]" label="商品名称"></v-text-field>
                                                         </v-col>
                                                         <v-col cols="12" sm="12">
-                                                            <v-text-field label="库存数量" :rules="[editRules.required]"></v-text-field>
+                                                            <v-text-field :rules="[editRules.required]" label="库存数量"></v-text-field>
                                                         </v-col>
                                                     </v-row>
                                                 </v-container>
                                                 <v-card-actions>
                                                     <v-spacer/>
-                                                    <v-btn text @click="edit_dialog = false">取消</v-btn>
-                                                    <v-btn text @click="editStore">确认</v-btn>
+                                                    <v-btn @click="edit_dialog = false" text>取消</v-btn>
+                                                    <v-btn @click="editStore" text>确认</v-btn>
                                                 </v-card-actions>
                                             </v-card-text>
                                         </v-card>
@@ -84,18 +88,31 @@
 </template>
 
 <script>
+
+    import Vue from 'vue'
+    import {Toast} from 'mint-ui'
+
+    Vue.use(Toast)
     export default {
         name: "InventoryManagement",
         data() {
             return {
                 card_title: [
-                    '商品总数','负库存数','库存预警'
+                    '商品总数', '负库存数', '库存预警'
                 ],
                 edit_dialog: false,
                 editRules: {
                     required: value => !!value || '不能为空'
-                }
+                },
+                goodsCount: null,
+                warningStore: null,
+                zeroStore: null,
+                storeList: []
             }
+        },
+        created() {
+            this.getCount()
+            this.getStoreList()
         },
         methods: {
             backRoute() {
@@ -103,6 +120,31 @@
             },
             editStore() {
 
+            },
+            async getCount() {
+                const {data:res} = await this.$http.post('/store/count',{shopId: window.sessionStorage.getItem("shopId")})
+                if (res.code !== 200) {
+                    Toast({
+                        message: '获取失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    this.goodsCount = res.data.goodsCount
+                    this.warningStore = res.data.warningStore
+                    this.zeroStore = res.data.zeroStore
+                }
+            },
+            async getStoreList() {
+                const {data:res} = await this.$http.post('/store/list',{shopId: window.sessionStorage.getItem("shopId")})
+                if (res.code !== 200) {
+                    Toast({
+                        message: '库存列表获取失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    this.storeList = res.data.list
+                    console.log(this.storeList)
+                }
             }
         }
     }
@@ -118,6 +160,7 @@
     .row {
         margin: 0;
     }
+
     .col {
         padding-left: 0;
     }
@@ -126,7 +169,7 @@
         font-weight: bold;
     }
 
-    .v-card__subtitle,.v-card__text {
+    .v-card__subtitle, .v-card__text {
         text-align: center;
     }
 

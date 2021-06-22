@@ -1,6 +1,6 @@
 <template>
     <v-app id="business-data">
-        <v-app-bar app flat color="white">
+        <v-app-bar app color="white" flat>
             <v-app-bar-nav-icon @click="backRoute">
                 <template #default>
                     <v-icon>mdi-arrow-left</v-icon>
@@ -10,102 +10,105 @@
         </v-app-bar>
         <v-main>
             <v-container fluid style="padding: 0">
-                    <div class="divider"/>
-                    <v-row>
-                        <v-col v-for="(item,index) in first_row" :key="index" :cols="index === 0 ? 9 : 2" :style="index === 1 ? {fontSize: '0.875rem',color: 'grey',padding: '0'} : {}" :align="index === 1 ? 'right' : ''">
-                            <span>{{item}}</span>
-                        </v-col>
-                        <v-col cols="1">
-                            <v-icon >mdi-chevron-right</v-icon>
-                        </v-col>
-                    </v-row>
-                    <v-divider/>
-                    <v-row>
-                        <v-subheader>今日交易金额(元)</v-subheader>
-                    </v-row>
-                    <v-row>
-                        <v-col class="sale-amount" cols="8">
-                            7382.00
-                        </v-col>
-                        <v-col cols="4">
-                            <v-sparkline
-                                    :value="value"
-                                    smooth
-                                    :gradient="gradient"
-                                    padding="0"
-                                    line-width="3"
-                                    stroke-linecap="round"
-                                    gradient-direction="top"
-                                    type="trend"
-                                    fill
-                                    auto-draw
-                            ></v-sparkline>
-                        </v-col>
-                    </v-row>
-                    <v-divider/>
-                    <v-row class="third-row">
-                        <v-col cols="6" v-for="item in second_row" :key="item">
-                            <v-subheader>{{item}}</v-subheader>
-                            <v-row class="third-inner-row">
-                                <v-col class="sale-amount" cols="5">
-                                    36
-                                </v-col>
-                                <v-col cols="7">
-                                    <v-sparkline
-                                            :value="value"
-                                            smooth
-                                            :radient="['#00c6ff', '#F0F', '#FF0']"
-                                            padding="0"
-                                            line-width="3"
-                                            stroke-linecap="round"
-                                            gradient-direction="top"
-                                            type="trend"
-                                            fill
-                                            auto-draw
-                                    ></v-sparkline>
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
-                    <div class="divider"/>
-                    <v-row>
-                        <v-col v-for="(item,index) in forth_row" :key="index" :cols="index === 0 ? 9 : 2" :style="index === 1 ? {fontSize: '0.875rem',color: 'grey',padding: '0'} : {}" :align="index === 1 ? 'right' : ''">
-                            <span>{{item}}</span>
-                        </v-col>
-                        <v-col cols="1">
-                            <v-icon >mdi-chevron-right</v-icon>
-                        </v-col>
-                    </v-row>
-                    <v-divider/>
-                    <v-row class="fifth-row">
-                        <v-col cols="6" v-for="item in fifth_row" :key="item">
-                            <v-subheader>{{item}}</v-subheader>
-                            <v-list-item-title>36</v-list-item-title>
-                        </v-col>
-                    </v-row>
-                    <div class="divider"/>
-                    <v-row>
-                        <v-col v-for="(item,index) in sixth_row" :key="index" :cols="index === 0 ? 9 : 2" :style="index === 1 ? {fontSize: '0.875rem',color: 'grey',padding: '0'} : {}" :align="index === 1 ? 'right' : ''">
-                            <span>{{item}}</span>
-                        </v-col>
-                        <v-col cols="1">
-                            <v-icon >mdi-chevron-right</v-icon>
-                        </v-col>
-                    </v-row>
-                    <v-divider/>
-                    <v-row>
-                        <v-subheader>总客户数(人)</v-subheader>
-                    </v-row>
-                    <v-row>
-                        <v-list-item-title>7382.00</v-list-item-title>
-                    </v-row>
-                    <v-divider/>
-                    <v-row class="third-row">
-                        <v-col cols="6" v-for="item in seventh_row" :key="item">
-                            <v-subheader>{{item}}</v-subheader>
-                            <v-list-item-title>36</v-list-item-title>
-                        </v-col>
-                    </v-row>
+                <div class="divider"/>
+                <v-row>
+                    <v-col :align="index === 1 ? 'right' : ''" :cols="index === 0 ? 9 : 2" :key="index"
+                           :style="index === 1 ? {fontSize: '0.875rem',color: 'grey',padding: '0'} : {}" v-for="(item,index) in first_row">
+                        <span>{{item}}</span>
+                    </v-col>
+                    <v-col cols="1">
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                </v-row>
+                <v-divider/>
+                <v-row>
+                    <v-subheader>今日交易金额(元)</v-subheader>
+                </v-row>
+                <v-row>
+                    <v-col class="sale-amount" cols="8">
+                        7382.00
+                    </v-col>
+                    <v-col cols="4">
+                        <v-sparkline
+                                :gradient="gradient"
+                                :value="value"
+                                auto-draw
+                                fill
+                                gradient-direction="top"
+                                line-width="3"
+                                padding="0"
+                                smooth
+                                stroke-linecap="round"
+                                type="trend"
+                        ></v-sparkline>
+                    </v-col>
+                </v-row>
+                <v-divider/>
+                <v-row class="third-row">
+                    <v-col :key="item" cols="6" v-for="item in second_row">
+                        <v-subheader>{{item}}</v-subheader>
+                        <v-row class="third-inner-row">
+                            <v-col class="sale-amount" cols="5">
+                                36
+                            </v-col>
+                            <v-col cols="7">
+                                <v-sparkline
+                                        :radient="['#00c6ff', '#F0F', '#FF0']"
+                                        :value="value"
+                                        auto-draw
+                                        fill
+                                        gradient-direction="top"
+                                        line-width="3"
+                                        padding="0"
+                                        smooth
+                                        stroke-linecap="round"
+                                        type="trend"
+                                ></v-sparkline>
+                            </v-col>
+                        </v-row>
+                    </v-col>
+                </v-row>
+                <div class="divider"/>
+                <v-row>
+                    <v-col :align="index === 1 ? 'right' : ''" :cols="index === 0 ? 9 : 2" :key="index"
+                           :style="index === 1 ? {fontSize: '0.875rem',color: 'grey',padding: '0'} : {}" v-for="(item,index) in forth_row">
+                        <span>{{item}}</span>
+                    </v-col>
+                    <v-col cols="1">
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                </v-row>
+                <v-divider/>
+                <v-row class="fifth-row">
+                    <v-col :key="item" cols="6" v-for="item in fifth_row">
+                        <v-subheader>{{item}}</v-subheader>
+                        <v-list-item-title>36</v-list-item-title>
+                    </v-col>
+                </v-row>
+                <div class="divider"/>
+                <v-row>
+                    <v-col :align="index === 1 ? 'right' : ''" :cols="index === 0 ? 9 : 2" :key="index"
+                           :style="index === 1 ? {fontSize: '0.875rem',color: 'grey',padding: '0'} : {}" v-for="(item,index) in sixth_row">
+                        <span>{{item}}</span>
+                    </v-col>
+                    <v-col cols="1">
+                        <v-icon>mdi-chevron-right</v-icon>
+                    </v-col>
+                </v-row>
+                <v-divider/>
+                <v-row>
+                    <v-subheader>总客户数(人)</v-subheader>
+                </v-row>
+                <v-row>
+                    <v-list-item-title>7382.00</v-list-item-title>
+                </v-row>
+                <v-divider/>
+                <v-row class="third-row">
+                    <v-col :key="item" cols="6" v-for="item in seventh_row">
+                        <v-subheader>{{item}}</v-subheader>
+                        <v-list-item-title>36</v-list-item-title>
+                    </v-col>
+                </v-row>
             </v-container>
         </v-main>
     </v-app>
@@ -117,22 +120,22 @@
         data() {
             return {
                 first_row: [
-                    '订单统计','更多'
+                    '订单统计', '更多'
                 ],
                 second_row: [
-                    '今日交易笔数(笔)','今日交易箱数(箱)'
+                    '今日交易笔数(笔)', '今日交易箱数(箱)'
                 ],
                 forth_row: [
-                    '商品统计','更多'
+                    '商品统计', '更多'
                 ],
                 fifth_row: [
-                    '今日在售商品(种)','今日下单商品(种)'
+                    '今日在售商品(种)', '今日下单商品(种)'
                 ],
                 sixth_row: [
-                    '客户统计','更多'
+                    '客户统计', '更多'
                 ],
                 seventh_row: [
-                    '今日下单客户数(人)','复购客户占比'
+                    '今日下单客户数(人)', '复购客户占比'
                 ],
                 gradient: ['#f72047', '#ffd200', '#1feaea'],
                 value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
@@ -173,7 +176,7 @@
         padding: 0;
     }
 
-    .third-row,.fifth-row {
+    .third-row, .fifth-row {
         height: 6rem;
     }
 

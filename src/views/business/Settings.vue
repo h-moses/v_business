@@ -2,17 +2,17 @@
     <v-main>
         <v-container fluid>
             <v-app-bar
+                    app
                     color="white"
                     dense
                     flat
-                    app
             >
                 <v-app-bar-title>系统设置</v-app-bar-title>
             </v-app-bar>
             <v-divider/>
             <v-list>
-                <v-list-item v-for="(item,index) in settingItem" :key="index">
-                    <v-btn class="list-btn" text @click="pushRoute(item)">
+                <v-list-item :key="index" v-for="(item,index) in settingItem">
+                    <v-btn @click="pushRoute(item)" class="list-btn" text>
                         <v-list-item-content>
                             <v-list-item-title>{{item}}</v-list-item-title>
                         </v-list-item-content>

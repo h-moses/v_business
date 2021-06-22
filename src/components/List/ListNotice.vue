@@ -1,6 +1,6 @@
 <template>
     <v-list two-line>
-        <v-list-item v-for="(item,index) in data" :key="index">
+        <v-list-item :key="index" v-for="(item,index) in data">
             <template #default>
                 <v-card outlined>
                     <v-card-title>{{item.title}}</v-card-title>

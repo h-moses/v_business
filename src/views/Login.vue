@@ -8,27 +8,30 @@
                 transition="scale-transition"
                 width="100"/>
 
-        <v-form class="login-form" value ref="form">
-            <v-input v-model="loginForm.mcPhone" >
-                <v-text-field v-model="loginForm.mcPhone" label="手机号" :rules="[rules.required,rules.phone]" dense clearable prepend-inner-icon="mdi-cellphone"/>
+        <v-form class="login-form" ref="form" value>
+            <v-input v-model="loginForm.mcPhone">
+                <v-text-field :rules="[rules.required,rules.phone]" clearable dense label="手机号" prepend-inner-icon="mdi-cellphone"
+                              v-model="loginForm.mcPhone"/>
             </v-input>
-            <v-input v-model="loginForm.mcPwd" hint="密码">
-                <v-text-field v-model="loginForm.mcPwd" label="密码" maxlength="12" :rules="[rules.required]" dense clearable prepend-inner-icon="mdi-lock-outline" :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" @keydown.enter="login"/>
+            <v-input hint="密码" v-model="loginForm.mcPwd">
+                <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" @keydown.enter="login" clearable
+                              dense label="密码"
+                              maxlength="12" prepend-inner-icon="mdi-lock-outline" v-model="loginForm.mcPwd"/>
             </v-input>
         </v-form>
-        <v-row class="register-amend" align="center" justify="space-between">
-            <v-btn text @click="registerAccount">快速注册</v-btn>
+        <v-row align="center" class="register-amend" justify="space-between">
+            <v-btn @click="registerAccount" text>快速注册</v-btn>
             <v-btn text>修改密码</v-btn>
         </v-row>
         <div class="btn-container">
-            <v-btn class="login-btn" elevation="2" color="primary" width="80%" rounded @click="login">登录</v-btn>
+            <v-btn @click="login" class="login-btn" color="primary" elevation="2" rounded width="80%">登录</v-btn>
         </div>
     </v-container>
 </template>
 
 <script>
     import Vue from 'vue'
-    import { Toast } from 'mint-ui'
+    import {Toast} from 'mint-ui'
 
     Vue.use(Toast)
 
@@ -55,10 +58,10 @@
                 this.$router.push('/register')
             },
             async login() {
-                const {data:res} = await this.$http.post('merchant/login',this.loginForm)
+                const {data: res} = await this.$http.post('merchant/login', this.loginForm)
                 if (res.code === 200) {
-                    await this.$router.push({name: 'Home',params: {mcPhone: this.loginForm.mcPhone}})
-                }else {
+                    await this.$router.push({path: '/home/main', query: {mcPhone: this.loginForm.mcPhone}})
+                } else {
                     Toast({
                         message: '密码错误',
                         position: 'bottom'

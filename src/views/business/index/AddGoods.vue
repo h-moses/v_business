@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app flat color="white" hide-on-scroll>
+        <v-app-bar app color="white" flat hide-on-scroll>
             <v-app-bar-nav-icon @click="backRoute">
                 <template #default>
                     <v-icon>mdi-arrow-left</v-icon>
@@ -15,7 +15,7 @@
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field prefix="商品名称" placeholder="输入商品名称" dense clearable/>
+                                    <v-text-field v-model="addForm.goodsName" clearable dense placeholder="输入商品名称" prefix="商品名称"/>
                                 </v-input>
                             </template>
                         </v-list-item>
@@ -23,11 +23,12 @@
                             <template #default>
                                 <v-file-input
                                         chips
-                                        multiple
-                                        shaped
-                                        prepend-icon="mdi-upload"
-                                        type="image/*"
                                         label="上传图片"
+                                        multiple
+                                        prepend-icon="mdi-upload"
+                                        shaped
+                                        type="image/*"
+                                        v-model="addForm.goodsAvatar"
                                 ></v-file-input>
                             </template>
                         </v-list-item>
@@ -37,14 +38,14 @@
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field prefix="商品大类" dense clearable/>
+                                    <v-text-field v-model="addForm.mainCategory" clearable dense prefix="商品大类"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field prefix="商品小类" dense clearable/>
+                                    <v-text-field v-model="addForm.secondaryCategory" clearable dense prefix="商品小类"/>
                                 </v-input>
                             </template>
                         </v-list-item>
@@ -52,7 +53,7 @@
                     <div class="divider"/>
                     <v-list>
                         <v-subheader>出售方式</v-subheader>
-                        <v-chip-group v-model="saleWay" color="primary">
+                        <v-chip-group color="primary" v-model="addForm.saleWay">
                             <v-chip filter outlined>按箱计价</v-chip>
                             <v-chip filter outlined>按重量计价</v-chip>
                             <v-chip filter outlined>散装</v-chip>
@@ -63,35 +64,35 @@
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field placeholder="给商品起个好价格" prefix="单价" suffix="元/公斤" dense clearable/>
+                                    <v-text-field v-model="addForm.unitPrice" clearable dense placeholder="给商品起个好价格" prefix="单价" suffix="元/公斤"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field placeholder="请输入公斤数" prefix="规格" suffix="公斤/箱" dense clearable/>
+                                    <v-text-field v-model="addForm.boxSize" clearable dense placeholder="请输入公斤数" prefix="规格" suffix="公斤/箱"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field placeholder="请输入整箱价格" prefix="一箱价格" suffix="元/箱" dense clearable/>
+                                    <v-text-field v-model="addForm.boxPrice" clearable dense placeholder="请输入整箱价格" prefix="一箱价格" suffix="元/箱"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field placeholder="请输入次果率" prefix="次果率" suffix="%" dense clearable/>
+                                    <v-text-field v-model="addForm.subordinatedRate" clearable dense placeholder="请输入次果率" prefix="次果率" suffix="%"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field placeholder="请输入产地" prefix="产地" dense clearable/>
+                                    <v-text-field v-model="addForm.originPlace" clearable dense placeholder="请输入产地" prefix="产地"/>
                                 </v-input>
                             </template>
                         </v-list-item>
@@ -101,25 +102,75 @@
         </v-main>
         <v-footer app color="white" fixed>
             <v-row justify="space-around">
-                <v-btn rounded color="primary">上架出售</v-btn>
-                <v-btn rounded color="primary" outlined>放入仓库</v-btn>
+                <v-btn color="primary" rounded @click="addGoods(true)">上架出售</v-btn>
+                <v-btn color="primary" outlined rounded @click="addGoods(false)">放入仓库</v-btn>
             </v-row>
         </v-footer>
     </v-app>
 </template>
 
 <script>
+
+    import Vue from 'vue'
+    import {Toast} from 'mint-ui'
+
+    Vue.use(Toast)
     export default {
         name: "AddGoods",
         data() {
             return {
-                saleWay: null
+                addForm: {
+                    goodsName: null,
+                    goodsAvatar: null,
+                    mainCategory: null,
+                    secondaryCategory: null,
+                    sellingWay: null,
+                    unitPrice: null,
+                    boxSize: null,
+                    boxPrice: null,
+                    subordinatedRate: null,
+                    originPlace: null,
+                    shopId: null,
+                    goodStuff: null,
+                    goodsState: null
+                }
+            }
+        },
+        created() {
+            if (this.$route.query.length() > 0) {
+                console.log(this.$route.query.length())
+                this.getGoodsDetail(this.$route.query.goodsId)
             }
         },
         methods: {
             backRoute() {
                 this.$router.back()
             },
+            async addGoods(onSale) {
+                this.addForm.goodsState = onSale
+                this.addForm.goodStuff = this.$route.query.goodStuff
+                this.addForm.shopId = window.sessionStorage.getItem("shopId")
+                const {data:res} = await this.$http.post('/goods/add',this.addForm)
+                if (res.code !== 200) {
+                    Toast({
+                        message: '添加失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    await this.$router.push('/goods')
+                }
+            },
+            async getGoodsDetail(id) {
+                const {data:res} = await this.$http.post('/goods/detail',{goodsId:id})
+                if (res.code !== 200) {
+                    Toast({
+                        message: '获取失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    this.addForm = res.data.goodsDetail
+                }
+            }
 
         }
     }

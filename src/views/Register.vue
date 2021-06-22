@@ -1,35 +1,41 @@
 <template>
     <v-container fluid>
-        <v-app-bar app dark dense rounded color="primary">
-           <v-app-bar-nav-icon @click="backLogin">
-               <template #default>
-                   <v-icon>mdi-arrow-left</v-icon>
-               </template>
-           </v-app-bar-nav-icon>
+        <v-app-bar app color="primary" dark dense rounded>
+            <v-app-bar-nav-icon @click="backLogin">
+                <template #default>
+                    <v-icon>mdi-arrow-left</v-icon>
+                </template>
+            </v-app-bar-nav-icon>
             <v-app-bar-title>用户注册</v-app-bar-title>
         </v-app-bar>
         <span class="register-title">创建账户</span>
-          <v-card class="card_container" height="400" shaped>
-              <v-form class="register-form" value>
-                  <v-input>
-                      <v-text-field v-model="registerForm.mcName" label="用户名" prepend-inner-icon="mdi-account" hint="最多6位字符" maxlength="6" :rules="[rules.required]" dense clearable/>
-                  </v-input>
-                  <v-input>
-                      <v-text-field v-model="registerForm.mcRealName" label="姓名" prepend-inner-icon="mdi-information" hint="最多8位字符" maxlength="8" :rules="[rules.required]" dense clearable/>
-                  </v-input>
-                  <v-input>
-                      <v-text-field v-model="registerForm.mcPhone" label="手机号码" prepend-inner-icon="mdi-cellphone" :rules="[rules.required,rules.phone]" dense clearable/>
-                  </v-input>
-                  <v-input>
-                      <v-text-field v-model="registerForm.mcEmail" label="邮箱" prepend-inner-icon="mdi-email" :rules="[rules.required,rules.email]" dense clearable/>
-                  </v-input>
-                  <v-input>
-                      <v-text-field v-model="registerForm.mcPwd" label="密码" prepend-inner-icon="mdi-lock-outline" hint="最多12位字符" maxlength="12" :rules="[rules.required]" dense clearable :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd"/>
-                  </v-input>
-              </v-form>
-          </v-card>
+        <v-card class="card_container" height="400" shaped>
+            <v-form class="register-form" value>
+                <v-input>
+                    <v-text-field :rules="[rules.required]" clearable dense hint="最多6位字符" label="用户名"
+                                  maxlength="6" prepend-inner-icon="mdi-account" v-model="registerForm.mcName"/>
+                </v-input>
+                <v-input>
+                    <v-text-field :rules="[rules.required]" clearable dense hint="最多8位字符" label="姓名"
+                                  maxlength="8" prepend-inner-icon="mdi-information" v-model="registerForm.mcRealName"/>
+                </v-input>
+                <v-input>
+                    <v-text-field :rules="[rules.required,rules.phone]" clearable dense label="手机号码"
+                                  prepend-inner-icon="mdi-cellphone" v-model="registerForm.mcPhone"/>
+                </v-input>
+                <v-input>
+                    <v-text-field :rules="[rules.required,rules.email]" clearable dense label="邮箱" prepend-inner-icon="mdi-email"
+                                  v-model="registerForm.mcEmail"/>
+                </v-input>
+                <v-input>
+                    <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" clearable
+                                  dense hint="最多12位字符" label="密码" maxlength="12"
+                                  prepend-inner-icon="mdi-lock-outline" v-model="registerForm.mcPwd"/>
+                </v-input>
+            </v-form>
+        </v-card>
         <div class="btn-container">
-            <v-btn class="register_btn" elevation="2" color="primary" width="80%" rounded @click="register">注册</v-btn>
+            <v-btn @click="register" class="register_btn" color="primary" elevation="2" rounded width="80%">注册</v-btn>
         </div>
     </v-container>
 </template>
@@ -37,7 +43,7 @@
 <script>
 
     import Vue from 'vue'
-    import { Toast } from 'mint-ui'
+    import {Toast} from 'mint-ui'
 
     Vue.use(Toast)
     export default {
@@ -70,14 +76,14 @@
                 this.$router.back()
             },
             async register() {
-                const {data:res} = await this.$http.post('/merchant/register',this.registerForm)
-                if(res.code === 200) {
+                const {data: res} = await this.$http.post('merchant/register', this.registerForm)
+                if (res.code === 200) {
                     await this.$router.push('/')
-                }else {
+                } else {
                     Toast(
                         {
-                        message: '用户已存在',
-                        position: 'bottom'
+                            message: '用户已存在',
+                            position: 'bottom'
                         }
                     )
                 }
@@ -88,7 +94,7 @@
 
 <style lang="less" scoped>
     .register-title {
-        font-family: '微软雅黑',sans-serif;
+        font-family: '微软雅黑', sans-serif;
         fon t-size: 1.6rem;
         font-weight: bold;
         letter-spacing: 0.1rem;

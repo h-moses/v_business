@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app flat color="white">
+        <v-app-bar app color="white" flat>
             <v-app-bar-nav-icon @click="backRoute">
                 <template #default>
                     <v-icon>mdi-arrow-left</v-icon>
@@ -14,17 +14,17 @@
         >
             <v-img
                     class="pro-logo"
-                    height="20%"
                     contain
+                    height="20%"
                     src="../../../assets/logo.png"
                     transition="scale-transition"
-                    />
+            />
             <v-divider class="col-divider"/>
             <v-row
                     align="end"
                     class="mx-auto"
             >
-                <v-col class="flex-fill" v-for="item in content" :key="item">
+                <v-col :key="item" class="flex-fill" v-for="item in content">
                     <v-list-item
                             color="rgba(0, 0, 0, .4)"
                     >

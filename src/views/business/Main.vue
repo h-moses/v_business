@@ -1,40 +1,40 @@
 <template>
     <v-container fluid>
-        <v-row class="first-row" align="center">
+        <v-row align="center" class="first-row">
             <v-avatar size="36">
-                <img src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png" alt="avatar"/>
+                <img :src="mcAvatar" alt="avatar"/>
             </v-avatar>
-            <span>Van_Universe</span>
+            <span>{{mcName}}</span>
         </v-row>
-        <v-card color="primary" height="170" dark>
+        <v-card color="primary" dark height="170">
             <v-col>
                 <div>今日交易额(元)</div>
-                <div style="font-size: 2rem">123123.42</div>
+                <div style="font-size: 2rem">{{todayAmount}}</div>
             </v-col>
             <v-row class="card-row">
                 <v-col class="card-col">
                     <div>今日访客</div>
-                    <div>321</div>
+                    <div>{{todayVisitor}}</div>
                 </v-col>
                 <v-col class="card-col">
                     <div>昨日新增客户</div>
-                    <div>321</div>
+                    <div>{{newCustomer}}</div>
                 </v-col>
                 <v-col class="card-col">
                     <div>7日订单</div>
-                    <div>777</div>
+                    <div>{{sevenDayOrder}}</div>
                 </v-col>
             </v-row>
         </v-card>
-        <v-row class="common-action" align="center"
+        <v-row align="center" class="common-action"
                justify="space-around">
             <v-btn text>备货清单</v-btn>
             <v-divider vertical/>
             <v-btn text>退款</v-btn>
         </v-row>
         <v-row dense>
-            <v-col class="function-col" v-for="(item,index) in functionList" :key="index">
-                <v-btn class="manage-btn" text v-for="(children,index) in item" :key="index" @click="pushRoute(children.name)">
+            <v-col :key="index" class="function-col" v-for="(item,index) in functionList">
+                <v-btn :key="index" @click="pushRoute(children.name)" class="manage-btn" text v-for="(children,index) in item">
                     <i :class="children.icon"></i>
                     <div>{{children.name}}</div>
                 </v-btn>
@@ -51,7 +51,7 @@
                     <v-list-item-subtitle>快速了解</v-list-item-subtitle>
                 </v-list-item-content>
                 <v-list-item-action>
-                    <v-btn outlined rounded color="primary">去完成</v-btn>
+                    <v-btn color="primary" outlined rounded>去完成</v-btn>
                 </v-list-item-action>
             </v-list-item>
         </v-list>
@@ -59,6 +59,11 @@
 </template>
 
 <script>
+
+    import Vue from 'vue'
+    import {Toast} from 'mint-ui'
+
+    Vue.use(Toast)
     export default {
         name: "Main",
         data() {
@@ -80,8 +85,19 @@
                 mcLearning: {
                     title: '了解果星Planet',
                     subtitle: '快速了解'
-                }
+                },
+                mcName: null,
+                mcAvatar: null,
+                todayAmount: null,
+                todayVisitor: null,
+                newCustomer: null,
+                sevenDayOrder: null
             }
+        },
+        created() {
+            this.getMerchantInfo()
+            this.getShopInfo()
+            this.getData()
         },
         methods: {
             pushRoute(name) {
@@ -105,6 +121,50 @@
                         this.$router.push('/store/sales')
                         break
                 }
+            },
+            async getMerchantInfo() {
+                window.sessionStorage.setItem("mcPhone",this.$route.query.mcPhone)
+                const {data: res} = await this.$http.post('/merchant/info', {mcPhone: window.sessionStorage.getItem("mcPhone")})
+                if (res.code !== 200) {
+                    Toast({
+                        message: '信息获取失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    this.mcName = res.data.name
+                    this.mcAvatar = res.data.avatar
+                    window.sessionStorage.setItem("mcId", res.data.id)
+                }
+            },
+            async getShopInfo() {
+                const {data: res} = await this.$http.post('/shop/info', {mcId: window.sessionStorage.getItem('mcId')})
+                if (res.code !== 200) {
+                    Toast({
+                        message: '店铺信息获取失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    window.sessionStorage.setItem('shopId',res.data.shopId)
+                }
+            },
+            async getData() {
+                console.log(window.sessionStorage.getItem("shopId"))
+                const {data:res} = await this.$http.post('/index/data',{shopId: window.sessionStorage.getItem("shopId")})
+                if (res.code !== 200) {
+                    Toast({
+                        message: '数据不存在',
+                        position: 'bottom'
+                    })
+                }else {
+                    if (res.data.todayAmount === null) {
+                        this.todayAmount = 0
+                    }else {
+                        this.todayAmount = res.data.todayAmount
+                    }
+                    this.todayVisitor = res.data.todayVisitor
+                    this.newCustomer = res.data.newCustomer
+                    this.sevenDayOrder = res.data.sevenDayOrder
+                }
             }
         }
     }
@@ -124,11 +184,11 @@
     .v-card {
         margin-top: 25px;
 
-           .card-col {
-               display: flex;
-               flex-direction: column;
-               align-items: center;
-           }
+        .card-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
     }
 
     .common-action {

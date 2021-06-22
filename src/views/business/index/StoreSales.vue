@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-app-bar app flat color="white" hide-on-scroll>
+        <v-app-bar app color="white" flat hide-on-scroll>
             <v-app-bar-nav-icon @click="backRoute">
                 <template #default>
                     <v-icon>mdi-arrow-left</v-icon>
@@ -14,46 +14,46 @@
                     <v-card-title>
                         <v-row>
                             <v-subheader>单位（元）</v-subheader>
-<!--                            <v-spacer/>-->
+                            <!--                            <v-spacer/>-->
                             <v-menu
-                                    ref="menu"
-                                    v-model="menu"
                                     :close-on-content-click="false"
                                     :return-value.sync="date"
-                                    transition="scale-transition"
-                                    offset-y
                                     max-width="290px"
                                     min-width="auto"
+                                    offset-y
+                                    ref="menu"
+                                    transition="scale-transition"
+                                    v-model="menu"
                             >
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
-                                            v-model="date"
+                                            append-icon="$dropdown"
                                             label="月份"
                                             prepend-icon="mdi-calendar"
-                                            append-icon="$dropdown"
                                             readonly
                                             v-bind="attrs"
+                                            v-model="date"
                                             v-on="on"
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker
-                                        v-model="date"
-                                        type="month"
                                         no-title
                                         scrollable
+                                        type="month"
+                                        v-model="date"
                                 >
                                     <v-spacer></v-spacer>
                                     <v-btn
-                                            text
-                                            color="primary"
                                             @click="menu = false"
+                                            color="primary"
+                                            text
                                     >
                                         Cancel
                                     </v-btn>
                                     <v-btn
-                                            text
-                                            color="primary"
                                             @click="$refs.menu.save(date)"
+                                            color="primary"
+                                            text
                                     >
                                         OK
                                     </v-btn>
@@ -65,11 +65,11 @@
                         <v-sheet>
                             <v-sparkline
                                     :value="value"
+                                    auto-draw
                                     height="150"
                                     padding="12"
                                     smooth
                                     type="bar"
-                                    auto-draw
                             >
                                 <template v-slot:label="item">
                                     {{ item.value }}
@@ -130,7 +130,7 @@
 
 <style lang="less" scoped>
     /deep/ svg {
-        color: rgb(25,102,255);
+        color: rgb(25, 102, 255);
     }
 
     .v-input {
@@ -139,7 +139,7 @@
 
     .balance-title {
         font-size: 0.875rem;
-        font-family: '微软雅黑',sans-serif;
+        font-family: '微软雅黑', sans-serif;
     }
 
     .balance-data {

@@ -8,16 +8,16 @@ import vuetify from './plugins/vuetify'
 import './assets/iconfont/iconfont.css'
 
 axios.interceptors.request.use(config => {
-  config.data = qs.stringify(config.data)
-  config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
-  return config
+    config.data = qs.stringify(config.data)
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    return config
 })
 axios.defaults.baseURL = 'http://localhost:8050/'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
 new Vue({
-  vuetify,
-  router,
-  render: h => h(App)
+    vuetify,
+    router,
+    render: h => h(App)
 }).$mount('#app')
