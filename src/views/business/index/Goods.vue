@@ -17,15 +17,15 @@
                 </v-tabs>
                 <v-tabs-items v-model="tab">
                     <v-tab-item :key="item.name" v-for="(item,index) in tabTitle">
-                        <goods-list :data="goodsList" v-on:getdata="getGoodsListByState(index)"/>
+                        <goods-list :data="goodsList" :state="tab" v-on:getdata="getGoodsListByState(index)"/>
                     </v-tab-item>
                 </v-tabs-items>
             </v-container>
         </v-main>
         <v-footer app color="white" fixed>
             <v-row justify="space-around">
-                <v-btn color="primary" rounded @click="addGoods(false)">添加商品</v-btn>
-                <v-btn color="primary" outlined rounded @click="addGoods(true)">添加好货</v-btn>
+                <v-btn color="primary" rounded @click="addGoods(0)">添加商品</v-btn>
+                <v-btn color="primary" outlined rounded @click="addGoods(1)">添加好货</v-btn>
             </v-row>
         </v-footer>
     </v-app>
@@ -55,6 +55,14 @@
         created() {
             this.getGoodsListByState(0)
         },
+        watch: {
+            tab: {
+                deep: true,
+                handler(val) {
+                    this.getGoodsListByState(val)
+                }
+            }
+        },
         methods: {
             backRoute() {
                 this.$router.back()
@@ -66,7 +74,6 @@
                 this.$router.push({path: '/goods/add',query: {good: isGood}})
             },
             async getGoodsListByName(goodsName) {
-                console.log(goodsName)
                 const {data:res} = await this.$http.post('/goods/by/name',{shopId: window.sessionStorage.getItem('shopId'),goodsName: goodsName})
                 if (res.code !== 200) {
                     Toast({

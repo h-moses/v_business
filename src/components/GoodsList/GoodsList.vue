@@ -8,7 +8,7 @@
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title>
-                            <v-chip v-if="item.goodStuff === true" class="ma-2" color="#FF6519" label text-color="white">好货</v-chip>
+                            <v-chip v-if="item.goodStuff === 1" class="ma-2" color="#FF6519" label text-color="white">好货</v-chip>
                             <span style="white-space: normal;word-wrap: break-word;">
                                 {{item.goodsName}}
                             </span>
@@ -24,9 +24,10 @@
                                     </v-btn>
                                 </template>
                                 <v-row align="center" class="op-row" justify="center">
-                                    <v-btn text @click="updateGoods">编辑</v-btn>
+                                    <v-btn text @click="updateGoods(item.goodsId)">编辑</v-btn>
                                     <v-divider vertical/>
-                                    <v-btn text @click="updateState(item.goodsId,1)">下架</v-btn>
+                                    <v-btn v-if="state === 0" text @click="updateState(item.goodsId,1)">下架</v-btn>
+                                    <v-btn v-else text @click="updateState(item.goodsId,0)">上架</v-btn>
                                     <v-divider vertical/>
                                     <v-btn text @click="deleteGoods(item.goodsId)">删除</v-btn>
                                 </v-row>
@@ -49,6 +50,10 @@
             data: {
                 type: Array,
                 required: true
+            },
+            state: {
+                type: Number,
+                required: true
             }
         },
         data() {
@@ -65,8 +70,8 @@
             }
         },
         methods: {
-            updateGoods() {
-                this.$router.push('/goods/add')
+            updateGoods(id) {
+                this.$router.push({path: '/goods/add',query: {goodsId: id}})
             },
             async updateState(goodsId,newState) {
                 const {data:res} = await this.$http.post('/goods/state',{goodsId:goodsId,goodsState: newState})

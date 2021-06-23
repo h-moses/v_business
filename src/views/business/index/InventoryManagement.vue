@@ -26,18 +26,18 @@
                 </v-card>
                 <v-subheader>库存商品</v-subheader>
                 <v-list two-line>
-                    <v-list-item>
+                    <v-list-item v-for="item in storeList" :key="item.goodsId">
                         <v-list-item-avatar>
-                            <v-img src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"/>
+                            <v-img :src="item.goodsAvatar"/>
                         </v-list-item-avatar>
                         <v-list-item-content>
                             <v-list-item-title>
-                                烟台红富士苹果
+                                {{item.goodsName}}
                             </v-list-item-title>
                             <v-list-item-subtitle>
                                 <v-row>
                                     <v-col>
-                                        <span>库存：15件</span>
+                                        <span>库存：{{item.storeQuantity}}</span>
                                     </v-col>
                                 </v-row>
                             </v-list-item-subtitle>
@@ -62,17 +62,17 @@
                                                 <v-container>
                                                     <v-row>
                                                         <v-col cols="12" sm="12">
-                                                            <v-text-field :rules="[editRules.required]" label="商品名称"></v-text-field>
+                                                            <v-text-field v-model="item.goodsName" :rules="[editRules.required]" label="商品名称"></v-text-field>
                                                         </v-col>
                                                         <v-col cols="12" sm="12">
-                                                            <v-text-field :rules="[editRules.required]" label="库存数量"></v-text-field>
+                                                            <v-text-field v-model="item.storeQuantity" :rules="[editRules.required]" label="库存数量"></v-text-field>
                                                         </v-col>
                                                     </v-row>
                                                 </v-container>
                                                 <v-card-actions>
                                                     <v-spacer/>
                                                     <v-btn @click="edit_dialog = false" text>取消</v-btn>
-                                                    <v-btn @click="editStore" text>确认</v-btn>
+                                                    <v-btn @click="editStore(item.goodsId,item.goodsName,item.storeQuantity)" text>确认</v-btn>
                                                 </v-card-actions>
                                             </v-card-text>
                                         </v-card>
@@ -118,8 +118,22 @@
             backRoute() {
                 this.$router.back()
             },
-            editStore() {
-
+            async editStore(id,name,quantity) {
+                const {data:res} = await this.$http.post('/store/update',{goodsId:id,goodsName:name,storeQuantity:quantity})
+                if (res.code !== 200) {
+                    Toast({
+                        message:'修改失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    Toast({
+                        message:'修改成功',
+                        position: 'bottom'
+                    })
+                    this.edit_dialog = false
+                    await this.getCount()
+                    await this.getStoreList()
+                }
             },
             async getCount() {
                 const {data:res} = await this.$http.post('/store/count',{shopId: window.sessionStorage.getItem("shopId")})

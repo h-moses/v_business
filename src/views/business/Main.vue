@@ -147,7 +147,6 @@
                 }
             },
             async getData() {
-                console.log(window.sessionStorage.getItem("shopId"))
                 const {data:res} = await this.$http.post('/index/data',{shopId: window.sessionStorage.getItem("shopId")})
                 if (res.code !== 200) {
                     Toast({
