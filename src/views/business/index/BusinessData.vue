@@ -26,7 +26,7 @@
                 </v-row>
                 <v-row>
                     <v-col class="sale-amount" cols="8">
-                        7382.00
+                        {{todayAmount}}
                     </v-col>
                     <v-col cols="4">
                         <v-sparkline
@@ -48,8 +48,11 @@
                     <v-col :key="item" cols="6" v-for="item in second_row">
                         <v-subheader>{{item}}</v-subheader>
                         <v-row class="third-inner-row">
-                            <v-col class="sale-amount" cols="5">
-                                36
+                            <v-col v-if="item === '今日交易笔数(笔)'" class="sale-amount" cols="5">
+                                {{todayOrderCount}}
+                            </v-col>
+                            <v-col v-else class="sale-amount" cols="5">
+                                {{todayOrderBox}}
                             </v-col>
                             <v-col cols="7">
                                 <v-sparkline
@@ -82,7 +85,8 @@
                 <v-row class="fifth-row">
                     <v-col :key="item" cols="6" v-for="item in fifth_row">
                         <v-subheader>{{item}}</v-subheader>
-                        <v-list-item-title>36</v-list-item-title>
+                        <v-list-item-title v-if="item === '今日在售商品(种)'">{{countOnSale}}</v-list-item-title>
+                        <v-list-item-title v-else>{{orderGoodsCount}}</v-list-item-title>
                     </v-col>
                 </v-row>
                 <div class="divider"/>
@@ -100,13 +104,14 @@
                     <v-subheader>总客户数(人)</v-subheader>
                 </v-row>
                 <v-row>
-                    <v-list-item-title>7382.00</v-list-item-title>
+                    <v-list-item-title>{{allCustomers}}</v-list-item-title>
                 </v-row>
                 <v-divider/>
                 <v-row class="third-row">
                     <v-col :key="item" cols="6" v-for="item in seventh_row">
                         <v-subheader>{{item}}</v-subheader>
-                        <v-list-item-title>36</v-list-item-title>
+                        <v-list-item-title v-if="item === '今日下单客户数(人)'">{{todayCustomers}}</v-list-item-title>
+                        <v-list-item-title v-else>{{oldRate}}</v-list-item-title>
                     </v-col>
                 </v-row>
             </v-container>
@@ -115,6 +120,10 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+    import {Toast} from 'mint-ui'
+
+    Vue.use(Toast)
     export default {
         name: "BusinessData",
         data() {
@@ -139,11 +148,45 @@
                 ],
                 gradient: ['#f72047', '#ffd200', '#1feaea'],
                 value: [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0],
+                todayAmount: null,
+                todayOrderCount: null,
+                todayOrderBox: null,
+                orderGoodsCount: null,
+                countOnSale: null,
+                allCustomers: null,
+                todayCustomers: null,
+                oldRate: null
             }
+        },
+        created() {
+            this.getData()
         },
         methods: {
             backRoute() {
                 this.$router.back()
+            },
+            async getData() {
+                const {data:res} = await this.$http.post('/business/data',{shopId: window
+                .sessionStorage.getItem('shopId')})
+                if (res.code !== 200) {
+                    Toast({
+                        message: '获取失败',
+                        position: 'bottom'
+                    })
+                } else {
+                    if (res.data.todayAmount === null) {
+                        this.todayAmount = 0
+                    } else {
+                        this.todayAmount = res.data.todayAmount
+                    }
+                    this.todayOrderCount = res.data.todayOrderCount
+                    this.todayOrderBox = res.data.todayOrderBox
+                    this.orderGoodsCount = res.data.orderGoodsCount
+                    this.countOnSale = res.data.countOnSale
+                    this.allCustomers = res.data.allCustomers
+                    this.todayCustomers = res.data.todayCustomers
+                    this.oldRate = res.data.oldRate
+                }
             }
         }
     }
