@@ -43,13 +43,16 @@
             }
         },
         created() {
-            this.getOrder(null)
+            this.getOrder()
         },
         watch: {
             tab: {
                 deep: true,
                 handler(val) {
                     switch (val) {
+                        case 0:
+                            this.getOrder()
+                            break
                         case 1:
                             this.getOrder(0)
                             break

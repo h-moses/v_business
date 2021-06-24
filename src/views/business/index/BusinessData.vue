@@ -111,7 +111,7 @@
                     <v-col :key="item" cols="6" v-for="item in seventh_row">
                         <v-subheader>{{item}}</v-subheader>
                         <v-list-item-title v-if="item === '今日下单客户数(人)'">{{todayCustomers}}</v-list-item-title>
-                        <v-list-item-title v-else>{{oldRate}}</v-list-item-title>
+                        <v-list-item-title v-else>{{oldRate}}%</v-list-item-title>
                     </v-col>
                 </v-row>
             </v-container>
@@ -155,6 +155,7 @@
                 countOnSale: null,
                 allCustomers: null,
                 todayCustomers: null,
+                oldCustomers: null,
                 oldRate: null
             }
         },
@@ -185,7 +186,8 @@
                     this.countOnSale = res.data.countOnSale
                     this.allCustomers = res.data.allCustomers
                     this.todayCustomers = res.data.todayCustomers
-                    this.oldRate = res.data.oldRate
+                    this.oldCustomers = res.data.oldCustomers
+                    this.oldRate = this.oldCustomers / this.allCustomers * 100
                 }
             }
         }

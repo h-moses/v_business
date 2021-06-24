@@ -16,9 +16,9 @@
                             <v-col :key="index" v-for="(item,index) in card_title">
                                 <v-card-subtitle>{{item}}</v-card-subtitle>
                                 <v-card-text :style="index === 0 ? {} : index === 1 ? {color: 'red'} : {color: 'orange'}">
-                                    <span v-if="index === 0">{{goodsCount}}</span>
-                                    <span v-else-if="index === 1">{{zeroStore}}</span>
-                                    <span v-else-if="index === 2">{{warningStore}}</span>
+                                    <span v-if="index === 0" @click="getStoreList(null)">{{goodsCount}}</span>
+                                    <span v-else-if="index === 1" @click="getStoreList(0)">{{zeroStore}}</span>
+                                    <span v-else-if="index === 2" @click="getStoreList(20)">{{warningStore}}</span>
                                 </v-card-text>
                             </v-col>
                         </v-row>
@@ -112,7 +112,7 @@
         },
         created() {
             this.getCount()
-            this.getStoreList()
+            this.getStoreList(null)
         },
         methods: {
             backRoute() {
@@ -148,8 +148,8 @@
                     this.zeroStore = res.data.zeroStore
                 }
             },
-            async getStoreList() {
-                const {data:res} = await this.$http.post('/store/list',{shopId: window.sessionStorage.getItem("shopId")})
+            async getStoreList(condition) {
+                const {data:res} = await this.$http.post('/store/list',{shopId: window.sessionStorage.getItem("shopId"),condition: condition})
                 if (res.code !== 200) {
                     Toast({
                         message: '库存列表获取失败',
@@ -157,7 +157,6 @@
                     })
                 } else {
                     this.storeList = res.data.list
-                    console.log(this.storeList)
                 }
             }
         }

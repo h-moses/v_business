@@ -82,7 +82,7 @@
                 }
             },
             backRoute() {
-                this.$router.back()
+                this.$router.push('/home/settings')
             }
         }
     }

@@ -8,7 +8,7 @@
                     <span v-else-if="item.orderState === 1" class="text-body-1">待买家提货</span>
                     <span v-else class="text-body-1">已完成</span>
                 </v-card-title>
-                <v-card-subtitle class="text-caption">订单编号</v-card-subtitle>
+                <v-card-subtitle class="text-caption">订单编号：{{item.orderId}}</v-card-subtitle>
                 <v-card-text>
                     <v-list-item>
                         <v-list-item-avatar>
@@ -24,7 +24,7 @@
                             </v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-action>
-                            <v-list-item-action-text class="text-body-2">￥{{item.notes.goodsAmount}}</v-list-item-action-text>
+                            <v-list-item-action-text class="text-body-2">￥{{item.orderAmount}}</v-list-item-action-text>
                         </v-list-item-action>
                     </v-list-item>
                 </v-card-text>

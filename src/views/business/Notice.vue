@@ -6,7 +6,7 @@
         </v-tabs>
         <v-tabs-items v-model="tab">
             <v-tab-item :key="item.name" v-for="item in tabTitle">
-                <list-notice v-if="item.name === '交易信息'"/>
+                <list-notice/>
             </v-tab-item>
         </v-tabs-items>
     </v-container>

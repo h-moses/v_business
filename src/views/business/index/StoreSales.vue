@@ -91,7 +91,6 @@
                                     <div class="balance-title">冻结金额(元)</div>
                                     <span class="balance-data">1000</span>
                                 </v-col>
-
                             </v-row>
                         </template>
                     </v-list-item>
@@ -108,13 +107,13 @@
         data() {
             return {
                 value: [
-                    423,
-                    446,
-                    675,
-                    510,
-                    590,
-                    610,
-                    760,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
                 ],
                 date: new Date().toISOString().substr(0, 7),
                 menu: false,

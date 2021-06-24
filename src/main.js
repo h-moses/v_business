@@ -12,7 +12,7 @@ axios.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded'
     return config
 })
-axios.defaults.baseURL = 'http://localhost:8050/'
+axios.defaults.baseURL = 'http://121.40.194.115:8050/'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 

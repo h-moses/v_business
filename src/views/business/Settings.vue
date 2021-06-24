@@ -49,6 +49,7 @@
                         this.$router.push('/about')
                         break
                     case '退出登录':
+                        window.sessionStorage.clear()
                         this.$router.push('/')
                         break
                 }
