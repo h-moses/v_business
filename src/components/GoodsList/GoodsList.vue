@@ -1,14 +1,14 @@
 <template>
     <div id="goods-list-item">
         <v-list three-line>
-            <v-list-item v-for="item in goodsList" :key="item.goodsId">
+            <v-list-item :key="item.goodsId" v-for="item in goodsList">
                 <template #default>
                     <v-list-item-avatar>
                         <v-img :src="item.goodsAvatar"/>
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title>
-                            <v-chip v-if="item.goodStuff === 1" class="ma-2" color="#FF6519" label text-color="white">好货</v-chip>
+                            <v-chip class="ma-2" color="#FF6519" label text-color="white" v-if="item.goodStuff === 1">好货</v-chip>
                             <span style="white-space: normal;word-wrap: break-word;">
                                 {{item.goodsName}}
                             </span>
@@ -24,12 +24,12 @@
                                     </v-btn>
                                 </template>
                                 <v-row align="center" class="op-row" justify="center">
-                                    <v-btn text @click="updateGoods(item.goodsId)">编辑</v-btn>
+                                    <v-btn @click="updateGoods(item.goodsId)" text>编辑</v-btn>
                                     <v-divider vertical/>
-                                    <v-btn v-if="state === 0" text @click="updateState(item.goodsId,1)">下架</v-btn>
-                                    <v-btn v-else text @click="updateState(item.goodsId,0)">上架</v-btn>
+                                    <v-btn @click="updateState(item.goodsId,1)" text v-if="state === 0">下架</v-btn>
+                                    <v-btn @click="updateState(item.goodsId,0)" text v-else>上架</v-btn>
                                     <v-divider vertical/>
-                                    <v-btn text @click="deleteGoods(item.goodsId)">删除</v-btn>
+                                    <v-btn @click="deleteGoods(item.goodsId)" text>删除</v-btn>
                                 </v-row>
                             </v-menu>
                         </v-row>
@@ -43,6 +43,7 @@
 <script>
     import Vue from 'vue'
     import {Toast} from 'mint-ui'
+
     Vue.use(Toast)
     export default {
         name: "GoodsList",
@@ -71,10 +72,10 @@
         },
         methods: {
             updateGoods(id) {
-                this.$router.push({path: '/goods/add',query: {goodsId: id}})
+                this.$router.push({path: '/goods/add', query: {goodsId: id}})
             },
-            async updateState(goodsId,newState) {
-                const {data:res} = await this.$http.post('/goods/state',{goodsId:goodsId,goodsState: newState})
+            async updateState(goodsId, newState) {
+                const {data: res} = await this.$http.post('/goods/state', {goodsId: goodsId, goodsState: newState})
                 if (res.code !== 200) {
                     Toast({
                         message: '修改失败',
@@ -84,7 +85,7 @@
                 this.$emit("getdata")
             },
             async deleteGoods(goodsId) {
-                const {data:res} = await this.$http.post('/goods/delete',{goodsId:goodsId})
+                const {data: res} = await this.$http.post('/goods/delete', {goodsId: goodsId})
                 if (res.code !== 200) {
                     Toast({
                         message: '删除失败',

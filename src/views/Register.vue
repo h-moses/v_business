@@ -28,7 +28,8 @@
                                   v-model="registerForm.mcEmail"/>
                 </v-input>
                 <v-input>
-                    <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" clearable
+                    <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'"
+                                  @click:append="showPwd = !showPwd" clearable
                                   dense hint="最多12位字符" label="密码" maxlength="12"
                                   prepend-inner-icon="mdi-lock-outline" v-model="registerForm.mcPwd"/>
                 </v-input>

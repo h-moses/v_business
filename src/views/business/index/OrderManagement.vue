@@ -71,7 +71,7 @@
                 this.$router.back()
             },
             async getOrder(goodsState) {
-                const {data:res} = await this.$http.post('/order/query',{shopId:window.sessionStorage.getItem('shopId'),orderState:goodsState})
+                const {data: res} = await this.$http.post('/order/query', {shopId: window.sessionStorage.getItem('shopId'), orderState: goodsState})
                 if (res.code !== 200) {
                     Toast({
                         message: '获取失败',

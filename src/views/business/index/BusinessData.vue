@@ -48,10 +48,10 @@
                     <v-col :key="item" cols="6" v-for="item in second_row">
                         <v-subheader>{{item}}</v-subheader>
                         <v-row class="third-inner-row">
-                            <v-col v-if="item === '今日交易笔数(笔)'" class="sale-amount" cols="5">
+                            <v-col class="sale-amount" cols="5" v-if="item === '今日交易笔数(笔)'">
                                 {{todayOrderCount}}
                             </v-col>
-                            <v-col v-else class="sale-amount" cols="5">
+                            <v-col class="sale-amount" cols="5" v-else>
                                 {{todayOrderBox}}
                             </v-col>
                             <v-col cols="7">
@@ -167,8 +167,10 @@
                 this.$router.back()
             },
             async getData() {
-                const {data:res} = await this.$http.post('/business/data',{shopId: window
-                .sessionStorage.getItem('shopId')})
+                const {data: res} = await this.$http.post('/business/data', {
+                    shopId: window
+                        .sessionStorage.getItem('shopId')
+                })
                 if (res.code !== 200) {
                     Toast({
                         message: '获取失败',

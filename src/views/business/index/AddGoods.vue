@@ -15,34 +15,34 @@
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field v-model="addForm.goodsName" dense placeholder="输入商品名称" prefix="商品名称"/>
+                                    <v-text-field dense placeholder="输入商品名称" prefix="商品名称" v-model="addForm.goodsName"/>
                                 </v-input>
                             </template>
                         </v-list-item>
-<!--                        <v-list-item>-->
-<!--                            <v-file-input-->
-<!--                                    chips-->
-<!--                                    label="上传图片"-->
-<!--                                    prepend-icon="mdi-upload"-->
-<!--                                    shaped-->
-<!--                                    accept="image/*"-->
-<!--                                    v-model="addForm.goodsAvatar"-->
-<!--                            ></v-file-input>-->
-<!--                        </v-list-item>-->
+                        <!--                        <v-list-item>-->
+                        <!--                            <v-file-input-->
+                        <!--                                    chips-->
+                        <!--                                    label="上传图片"-->
+                        <!--                                    prepend-icon="mdi-upload"-->
+                        <!--                                    shaped-->
+                        <!--                                    accept="image/*"-->
+                        <!--                                    v-model="addForm.goodsAvatar"-->
+                        <!--                            ></v-file-input>-->
+                        <!--                        </v-list-item>-->
                     </v-list>
                     <div class="divider"/>
                     <v-list style="padding: 1rem 0;">
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field v-model="addForm.mainCategory" dense prefix="商品大类"/>
+                                    <v-text-field dense prefix="商品大类" v-model="addForm.mainCategory"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field v-model="addForm.secondaryCategory" dense prefix="商品小类"/>
+                                    <v-text-field dense prefix="商品小类" v-model="addForm.secondaryCategory"/>
                                 </v-input>
                             </template>
                         </v-list-item>
@@ -61,35 +61,35 @@
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field v-model="addForm.unitPrice" dense placeholder="给商品起个好价格" prefix="单价" suffix="元/公斤"/>
+                                    <v-text-field dense placeholder="给商品起个好价格" prefix="单价" suffix="元/公斤" v-model="addForm.unitPrice"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field v-model="addForm.boxSize" dense placeholder="请输入公斤数" prefix="规格" suffix="公斤/箱"/>
+                                    <v-text-field dense placeholder="请输入公斤数" prefix="规格" suffix="公斤/箱" v-model="addForm.boxSize"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field v-model="addForm.boxPrice" dense placeholder="请输入整箱价格" prefix="一箱价格" suffix="元/箱"/>
+                                    <v-text-field dense placeholder="请输入整箱价格" prefix="一箱价格" suffix="元/箱" v-model="addForm.boxPrice"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field v-model="addForm.subordinatedRate" dense placeholder="请输入次果率" prefix="次果率" suffix="%"/>
+                                    <v-text-field dense placeholder="请输入次果率" prefix="次果率" suffix="%" v-model="addForm.subordinatedRate"/>
                                 </v-input>
                             </template>
                         </v-list-item>
                         <v-list-item>
                             <template #default>
                                 <v-input>
-                                    <v-text-field v-model="addForm.originPlace" dense placeholder="请输入产地" prefix="产地"/>
+                                    <v-text-field dense placeholder="请输入产地" prefix="产地" v-model="addForm.originPlace"/>
                                 </v-input>
                             </template>
                         </v-list-item>
@@ -99,8 +99,8 @@
         </v-main>
         <v-footer app color="white" fixed>
             <v-row justify="space-around">
-                <v-btn color="primary" rounded @click="addGoods(0)">上架出售</v-btn>
-                <v-btn color="primary" outlined rounded @click="addGoods(1)">放入仓库</v-btn>
+                <v-btn @click="addGoods(0)" color="primary" rounded>上架出售</v-btn>
+                <v-btn @click="addGoods(1)" color="primary" outlined rounded>放入仓库</v-btn>
             </v-row>
         </v-footer>
     </v-app>
@@ -147,7 +147,7 @@
                 this.addForm.goodStuff = this.$route.query.good
                 this.addForm.shopId = window.sessionStorage.getItem("shopId")
                 console.log(this.addForm)
-                const {data:res} = await this.$http.post('/goods/add',this.addForm)
+                const {data: res} = await this.$http.post('/goods/add', this.addForm)
                 if (res.code !== 200) {
                     Toast({
                         message: '添加失败',
@@ -158,7 +158,7 @@
                 }
             },
             async getGoodsDetail(id) {
-                const {data:res} = await this.$http.post('/goods/detail',{goodsId:id})
+                const {data: res} = await this.$http.post('/goods/detail', {goodsId: id})
                 if (res.code !== 200) {
                     Toast({
                         message: '获取失败',

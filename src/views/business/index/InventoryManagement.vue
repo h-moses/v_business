@@ -16,9 +16,9 @@
                             <v-col :key="index" v-for="(item,index) in card_title">
                                 <v-card-subtitle>{{item}}</v-card-subtitle>
                                 <v-card-text :style="index === 0 ? {} : index === 1 ? {color: 'red'} : {color: 'orange'}">
-                                    <span v-if="index === 0" @click="getStoreList(null)">{{goodsCount}}</span>
-                                    <span v-else-if="index === 1" @click="getStoreList(0)">{{zeroStore}}</span>
-                                    <span v-else-if="index === 2" @click="getStoreList(20)">{{warningStore}}</span>
+                                    <span @click="getStoreList(null)" v-if="index === 0">{{goodsCount}}</span>
+                                    <span @click="getStoreList(0)" v-else-if="index === 1">{{zeroStore}}</span>
+                                    <span @click="getStoreList(20)" v-else-if="index === 2">{{warningStore}}</span>
                                 </v-card-text>
                             </v-col>
                         </v-row>
@@ -26,7 +26,7 @@
                 </v-card>
                 <v-subheader>库存商品</v-subheader>
                 <v-list two-line>
-                    <v-list-item v-for="item in storeList" :key="item.goodsId">
+                    <v-list-item :key="item.goodsId" v-for="item in storeList">
                         <v-list-item-avatar>
                             <v-img :src="item.goodsAvatar"/>
                         </v-list-item-avatar>
@@ -62,10 +62,12 @@
                                                 <v-container>
                                                     <v-row>
                                                         <v-col cols="12" sm="12">
-                                                            <v-text-field v-model="item.goodsName" :rules="[editRules.required]" label="商品名称"></v-text-field>
+                                                            <v-text-field :rules="[editRules.required]" label="商品名称"
+                                                                          v-model="item.goodsName"></v-text-field>
                                                         </v-col>
                                                         <v-col cols="12" sm="12">
-                                                            <v-text-field v-model="item.storeQuantity" :rules="[editRules.required]" label="库存数量"></v-text-field>
+                                                            <v-text-field :rules="[editRules.required]" label="库存数量"
+                                                                          v-model="item.storeQuantity"></v-text-field>
                                                         </v-col>
                                                     </v-row>
                                                 </v-container>
@@ -118,16 +120,16 @@
             backRoute() {
                 this.$router.back()
             },
-            async editStore(id,name,quantity) {
-                const {data:res} = await this.$http.post('/store/update',{goodsId:id,goodsName:name,storeQuantity:quantity})
+            async editStore(id, name, quantity) {
+                const {data: res} = await this.$http.post('/store/update', {goodsId: id, goodsName: name, storeQuantity: quantity})
                 if (res.code !== 200) {
                     Toast({
-                        message:'修改失败',
+                        message: '修改失败',
                         position: 'bottom'
                     })
                 } else {
                     Toast({
-                        message:'修改成功',
+                        message: '修改成功',
                         position: 'bottom'
                     })
                     this.edit_dialog = false
@@ -136,7 +138,7 @@
                 }
             },
             async getCount() {
-                const {data:res} = await this.$http.post('/store/count',{shopId: window.sessionStorage.getItem("shopId")})
+                const {data: res} = await this.$http.post('/store/count', {shopId: window.sessionStorage.getItem("shopId")})
                 if (res.code !== 200) {
                     Toast({
                         message: '获取失败',
@@ -149,7 +151,7 @@
                 }
             },
             async getStoreList(condition) {
-                const {data:res} = await this.$http.post('/store/list',{shopId: window.sessionStorage.getItem("shopId"),condition: condition})
+                const {data: res} = await this.$http.post('/store/list', {shopId: window.sessionStorage.getItem("shopId"), condition: condition})
                 if (res.code !== 200) {
                     Toast({
                         message: '库存列表获取失败',

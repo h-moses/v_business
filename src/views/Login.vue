@@ -14,7 +14,8 @@
                               v-model="loginForm.mcPhone"/>
             </v-input>
             <v-input hint="密码" v-model="loginForm.mcPwd">
-                <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" @keydown.enter="login" clearable
+                <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'"
+                              @click:append="showPwd = !showPwd" @keydown.enter="login" clearable
                               dense label="密码"
                               maxlength="12" prepend-inner-icon="mdi-lock-outline" v-model="loginForm.mcPwd"/>
             </v-input>
@@ -60,7 +61,7 @@
             async login() {
                 const {data: res} = await this.$http.post('merchant/login', this.loginForm)
                 if (res.code === 200) {
-                    window.sessionStorage.setItem("mcPhone",this.loginForm.mcPhone)
+                    window.sessionStorage.setItem("mcPhone", this.loginForm.mcPhone)
                     await this.$router.push({path: '/home/main', query: {mcPhone: this.loginForm.mcPhone}})
                 } else {
                     Toast({

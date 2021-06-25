@@ -31,7 +31,8 @@
                                                           v-model="shopForm.shopName"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="12">
-                                            <v-text-field :rules="[addRules.required]" clearable label="主营业务" prepend-inner-icon="mdi-briefcase-outline"
+                                            <v-text-field :rules="[addRules.required]" clearable label="主营业务"
+                                                          prepend-inner-icon="mdi-briefcase-outline"
                                                           v-model="shopForm.majorBusiness"></v-text-field>
                                         </v-col>
                                         <v-col cols="12" sm="12">
@@ -210,7 +211,7 @@
                     })
                     this.hasShop = true
                     await this.getShopInfo()
-                    window.sessionStorage.setItem("shopId",this.shopForm.shopId)
+                    window.sessionStorage.setItem("shopId", this.shopForm.shopId)
                 }
             }
         }

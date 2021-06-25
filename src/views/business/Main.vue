@@ -143,20 +143,20 @@
                         position: 'bottom'
                     })
                 } else {
-                    window.sessionStorage.setItem('shopId',res.data.shopId)
+                    window.sessionStorage.setItem('shopId', res.data.shopId)
                 }
             },
             async getData() {
-                const {data:res} = await this.$http.post('/index/data',{shopId: window.sessionStorage.getItem("shopId")})
+                const {data: res} = await this.$http.post('/index/data', {shopId: window.sessionStorage.getItem("shopId")})
                 if (res.code !== 200) {
                     Toast({
                         message: '数据不存在',
                         position: 'bottom'
                     })
-                }else {
+                } else {
                     if (res.data.todayAmount === null) {
                         this.todayAmount = 0
-                    }else {
+                    } else {
                         this.todayAmount = res.data.todayAmount
                     }
                     this.todayVisitor = res.data.todayVisitor

@@ -2,11 +2,11 @@
     <div id="order-list-item">
         <div class="divider"/>
         <v-list>
-            <v-card tile v-for="item in data" :key="item.orderId">
+            <v-card :key="item.orderId" tile v-for="item in data">
                 <v-card-title>
-                    <span v-if="item.orderState === 0" class="text-body-1">待买家付款</span>
-                    <span v-else-if="item.orderState === 1" class="text-body-1">待买家提货</span>
-                    <span v-else class="text-body-1">已完成</span>
+                    <span class="text-body-1" v-if="item.orderState === 0">待买家付款</span>
+                    <span class="text-body-1" v-else-if="item.orderState === 1">待买家提货</span>
+                    <span class="text-body-1" v-else>已完成</span>
                 </v-card-title>
                 <v-card-subtitle class="text-caption">订单编号：{{item.orderId}}</v-card-subtitle>
                 <v-card-text>
@@ -55,9 +55,7 @@
                 }
             }
         },
-        methods: {
-
-        }
+        methods: {}
     }
 </script>
 

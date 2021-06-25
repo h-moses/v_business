@@ -10,7 +10,7 @@
         </v-app-bar>
         <v-main>
             <v-container fluid>
-                <v-text-field v-model="searchCondition" @keyup.enter="handleSearch" clearable dense filled placeholder="搜索商品名称" rounded/>
+                <v-text-field @keyup.enter="handleSearch" clearable dense filled placeholder="搜索商品名称" rounded v-model="searchCondition"/>
                 <v-tabs grow v-model="tab">
                     <v-tabs-slider color="primary"></v-tabs-slider>
                     <v-tab :key="item.name" v-for="item in tabTitle">{{item.name}}</v-tab>
@@ -24,8 +24,8 @@
         </v-main>
         <v-footer app color="white" fixed>
             <v-row justify="space-around">
-                <v-btn color="primary" rounded @click="addGoods(0)">添加商品</v-btn>
-                <v-btn color="primary" outlined rounded @click="addGoods(1)">添加好货</v-btn>
+                <v-btn @click="addGoods(0)" color="primary" rounded>添加商品</v-btn>
+                <v-btn @click="addGoods(1)" color="primary" outlined rounded>添加好货</v-btn>
             </v-row>
         </v-footer>
     </v-app>
@@ -71,10 +71,10 @@
                 this.getGoodsListByName(this.searchCondition)
             },
             addGoods(isGood) {
-                this.$router.push({path: '/goods/add',query: {good: isGood}})
+                this.$router.push({path: '/goods/add', query: {good: isGood}})
             },
             async getGoodsListByName(goodsName) {
-                const {data:res} = await this.$http.post('/goods/by/name',{shopId: window.sessionStorage.getItem('shopId'),goodsName: goodsName})
+                const {data: res} = await this.$http.post('/goods/by/name', {shopId: window.sessionStorage.getItem('shopId'), goodsName: goodsName})
                 if (res.code !== 200) {
                     Toast({
                         message: '获取失败',
@@ -85,7 +85,10 @@
                 }
             },
             async getGoodsListByState(goodsState) {
-                const {data:res} = await this.$http.post('/goods/by/state',{shopId: window.sessionStorage.getItem('shopId'),goodsState: goodsState})
+                const {data: res} = await this.$http.post('/goods/by/state', {
+                    shopId: window.sessionStorage.getItem('shopId'),
+                    goodsState: goodsState
+                })
                 if (res.code !== 200) {
                     Toast({
                         message: '获取失败',

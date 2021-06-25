@@ -13,14 +13,16 @@
             <v-container fluid>
                 <v-form>
                     <v-input>
-                        <v-text-field v-model="amendForm.originPwd" :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" clearable
-                                      dense label="原密码"
-                                      maxlength="12"/>
+                        <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'"
+                                      @click:append="showPwd = !showPwd" clearable dense
+                                      label="原密码" maxlength="12"
+                                      v-model="amendForm.originPwd"/>
                     </v-input>
                     <v-input hint="密码">
-                        <v-text-field v-model="amendForm.newPwd" :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'" @click:append="showPwd = !showPwd" clearable
-                                      dense label="新密码"
-                                      maxlength="12"/>
+                        <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'"
+                                      @click:append="showPwd = !showPwd" clearable dense
+                                      label="新密码" maxlength="12"
+                                      v-model="amendForm.newPwd"/>
                     </v-input>
                 </v-form>
                 <v-btn @click="amend" class="amend-btn" color="primary" elevation="2" rounded width="100%">修改</v-btn>
@@ -32,6 +34,7 @@
 <script>
     import Vue from 'vue'
     import {Toast} from 'mint-ui'
+
     Vue.use(Toast)
 
     export default {
@@ -50,7 +53,7 @@
         },
         methods: {
             async amend() {
-                const {data:res} = await this.$http.post('/merchant/pwd',{mcId:window.sessionStorage.getItem('mcId')})
+                const {data: res} = await this.$http.post('/merchant/pwd', {mcId: window.sessionStorage.getItem('mcId')})
                 if (res.code !== 200) {
                     Toast({
                         message: '获取失败',
@@ -63,7 +66,10 @@
                             position: 'bottom'
                         })
                     } else {
-                        const {data:res} = await this.$http.post('/merchant/pwd/amend',{mcId: window.sessionStorage.getItem('mcId'),mcPwd: this.amendForm.newPwd})
+                        const {data: res} = await this.$http.post('/merchant/pwd/amend', {
+                            mcId: window.sessionStorage.getItem('mcId'),
+                            mcPwd: this.amendForm.newPwd
+                        })
                         if (res.code !== 200) {
                             Toast({
                                 message: '修改失败',
@@ -76,7 +82,7 @@
                             })
                             setTimeout(() => {
                                 this.$router.push('/')
-                            },2000)
+                            }, 2000)
                         }
                     }
                 }
