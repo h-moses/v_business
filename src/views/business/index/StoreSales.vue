@@ -120,7 +120,7 @@
         },
         methods: {
             backRoute() {
-                this.$router.back()
+                this.$router.push('/home/main')
             }
         }
     }

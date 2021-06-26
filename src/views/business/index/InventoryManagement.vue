@@ -123,7 +123,7 @@
         },
         methods: {
             backRoute() {
-                this.$router.back()
+                this.$router.push('/home/main')
             },
             // 编辑库存，修改库存数量
             async editStore(id, name, quantity) {

@@ -164,7 +164,7 @@
         },
         methods: {
             backRoute() {
-                this.$router.back()
+                this.$router.push('/home/main')
             },
             async getData() {
                 const {data: res} = await this.$http.post('/business/data', {

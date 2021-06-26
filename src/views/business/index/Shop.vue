@@ -189,7 +189,7 @@
         },
         methods: {
             backRoute() {
-                this.$router.back()
+                this.$router.push('/home/main')
             },
             // 获取店铺信息
             async getShopInfo() {

@@ -69,7 +69,7 @@
         },
         methods: {
             backRoute() {
-                this.$router.back()
+                this.$router.push('/home/main')
             },
             // 获取订单信息
             async getOrder(goodsState) {

@@ -68,7 +68,7 @@
         },
         methods: {
             backRoute() {
-                this.$router.back()
+                this.$router.push('/home/main')
             },
             // 按照商品名称模糊搜索商品
             handleSearch() {

@@ -14,7 +14,7 @@ axios.interceptors.request.use(config => {
     return config
 })
 // 后端接口的基址
-axios.defaults.baseURL = 'http://localhost:8050/'
+axios.defaults.baseURL = 'http://121.40.194.115:8050/'
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
