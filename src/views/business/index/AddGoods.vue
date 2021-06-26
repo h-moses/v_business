@@ -111,6 +111,7 @@
         data() {
             return {
                 addForm: {
+                    goodsId: 0,
                     goodsName: null,
                     goodsAvatar: null,
                     mainCategory: null,
@@ -139,17 +140,34 @@
             },
             // 添加商品
             async addGoods(onSale) {
-                this.addForm.goodsState = onSale
-                this.addForm.goodStuff = this.$route.query.good
-                this.addForm.shopId = window.sessionStorage.getItem("shopId")
-                const {data: res} = await this.$http.post('/goods/add', this.addForm)
-                if (res.code !== 200) {
-                    Toast({
-                        message: '添加失败',
-                        position: 'bottom'
-                    })
+                if (this.$route.query.goodsId !== undefined) {
+                    this.addForm.goodsId = this.$route.query.goodsId
+                    const {data:res} = await this.$http.post('/goods/update',this.addForm)
+                    if (res.code !== 200) {
+                        Toast({
+                            message: '修改失败',
+                            position: 'bottom'
+                        })
+                    } else {
+                        Toast({
+                            message: '修改成功',
+                            position: 'bottom'
+                        })
+                        await this.$router.push('/goods')
+                    }
                 } else {
-                    await this.$router.push('/goods')
+                    this.addForm.goodsState = onSale
+                    this.addForm.goodStuff = this.$route.query.good
+                    this.addForm.shopId = window.sessionStorage.getItem("shopId")
+                    const {data: res} = await this.$http.post('/goods/add', this.addForm)
+                    if (res.code !== 200) {
+                        Toast({
+                            message: '添加失败',
+                            position: 'bottom'
+                        })
+                    } else {
+                        await this.$router.push('/goods')
+                    }
                 }
             },
             // 获取商品信息
@@ -162,6 +180,7 @@
                     })
                 } else {
                     this.addForm = res.data.goodsDetail
+                    console.log(this.addForm)
                 }
             }
 

@@ -182,14 +182,18 @@
                     } else {
                         this.todayAmount = res.data.todayAmount
                     }
+                    if (res.data.todayOrderBox === null) {
+                        this.todayOrderBox = 0
+                    } else {
+                        this.todayOrderBox = res.data.todayOrderBox
+                    }
                     this.todayOrderCount = res.data.todayOrderCount
-                    this.todayOrderBox = res.data.todayOrderBox
                     this.orderGoodsCount = res.data.orderGoodsCount
                     this.countOnSale = res.data.countOnSale
                     this.allCustomers = res.data.allCustomers
                     this.todayCustomers = res.data.todayCustomers
                     this.oldCustomers = res.data.oldCustomers
-                    this.oldRate = this.oldCustomers / this.allCustomers * 100
+                    this.oldRate = (this.allCustomers - this.oldCustomers) / this.allCustomers * 100
                 }
             }
         }
