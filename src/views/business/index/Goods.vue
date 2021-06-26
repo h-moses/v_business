@@ -10,7 +10,9 @@
         </v-app-bar>
         <v-main>
             <v-container fluid>
+                <!-- 商品搜索栏-->
                 <v-text-field @keyup.enter="handleSearch" clearable dense filled placeholder="搜索商品名称" rounded v-model="searchCondition"/>
+                <!-- 商品选项卡，分为出售中和未上架-->
                 <v-tabs grow v-model="tab">
                     <v-tabs-slider color="primary"></v-tabs-slider>
                     <v-tab :key="item.name" v-for="item in tabTitle">{{item.name}}</v-tab>
@@ -53,6 +55,7 @@
             }
         },
         created() {
+            // 按照出售状态获取商品列表
             this.getGoodsListByState(0)
         },
         watch: {
@@ -67,12 +70,15 @@
             backRoute() {
                 this.$router.back()
             },
+            // 按照商品名称模糊搜索商品
             handleSearch() {
                 this.getGoodsListByName(this.searchCondition)
             },
+            // 跳转至添加商品界面
             addGoods(isGood) {
                 this.$router.push({path: '/goods/add', query: {good: isGood}})
             },
+            // 按照名称搜索商品列表
             async getGoodsListByName(goodsName) {
                 const {data: res} = await this.$http.post('/goods/by/name', {shopId: window.sessionStorage.getItem('shopId'), goodsName: goodsName})
                 if (res.code !== 200) {
@@ -84,6 +90,7 @@
                     this.goodsList = res.data.goods
                 }
             },
+            // 按照出售状态搜索商品列表
             async getGoodsListByState(goodsState) {
                 const {data: res} = await this.$http.post('/goods/by/state', {
                     shopId: window.sessionStorage.getItem('shopId'),

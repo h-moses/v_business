@@ -13,6 +13,7 @@
                 <v-card tile>
                     <template #default>
                         <v-row>
+                            <!-- 显示商品总数、负库存数和库存预警数-->
                             <v-col :key="index" v-for="(item,index) in card_title">
                                 <v-card-subtitle>{{item}}</v-card-subtitle>
                                 <v-card-text :style="index === 0 ? {} : index === 1 ? {color: 'red'} : {color: 'orange'}">
@@ -43,14 +44,18 @@
                             </v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-action>
+                            <!-- 操作菜单-->
                             <v-menu offset-y top transition="scale-transition">
+                                <!-- 菜单激活器-->
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn icon v-bind="attrs" v-on="on">
                                         <v-icon>mdi-dots-horizontal</v-icon>
                                     </v-btn>
                                 </template>
                                 <v-row align="center" class="op-row" justify="center">
+                                    <!-- 编辑对话框-->
                                     <v-dialog max-width="500" persistent transition="dialog-bottom-transition" v-model="edit_dialog">
+                                        <!-- 对话框激活器-->
                                         <template v-slot:activator="{on,attrs}">
                                             <v-btn text v-bind="attrs" v-on="on">编辑</v-btn>
                                         </template>
@@ -120,6 +125,7 @@
             backRoute() {
                 this.$router.back()
             },
+            // 编辑库存，修改库存数量
             async editStore(id, name, quantity) {
                 const {data: res} = await this.$http.post('/store/update', {goodsId: id, goodsName: name, storeQuantity: quantity})
                 if (res.code !== 200) {
@@ -132,11 +138,14 @@
                         message: '修改成功',
                         position: 'bottom'
                     })
+                    // 关闭对话框
                     this.edit_dialog = false
+                    // 重新获取数据
                     await this.getCount()
                     await this.getStoreList()
                 }
             },
+            // 获取库存数量
             async getCount() {
                 const {data: res} = await this.$http.post('/store/count', {shopId: window.sessionStorage.getItem("shopId")})
                 if (res.code !== 200) {
@@ -150,6 +159,7 @@
                     this.zeroStore = res.data.zeroStore
                 }
             },
+            // 获取库存列表
             async getStoreList(condition) {
                 const {data: res} = await this.$http.post('/store/list', {shopId: window.sessionStorage.getItem("shopId"), condition: condition})
                 if (res.code !== 200) {

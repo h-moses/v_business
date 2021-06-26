@@ -10,6 +10,7 @@
         </v-app-bar>
         <v-main>
             <v-container fluid style="padding: 0">
+                <!-- 根据订单状态分为四个选项卡-->
                 <v-tabs grow v-model="tab">
                     <v-tabs-slider color="primary"></v-tabs-slider>
                     <v-tab :key="item" v-for="item in tabTitle">{{item}}</v-tab>
@@ -70,6 +71,7 @@
             backRoute() {
                 this.$router.back()
             },
+            // 获取订单信息
             async getOrder(goodsState) {
                 const {data: res} = await this.$http.post('/order/query', {shopId: window.sessionStorage.getItem('shopId'), orderState: goodsState})
                 if (res.code !== 200) {

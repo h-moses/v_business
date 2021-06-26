@@ -10,27 +10,20 @@
         </v-app-bar>
         <v-main>
             <v-container fluid style="padding: 12px 0;">
+                <!-- 添加商品的表单-->
                 <v-form>
                     <v-list>
                         <v-list-item>
                             <template #default>
+                                <!-- 商品名称输入框-->
                                 <v-input>
                                     <v-text-field dense placeholder="输入商品名称" prefix="商品名称" v-model="addForm.goodsName"/>
                                 </v-input>
                             </template>
                         </v-list-item>
-                        <!--                        <v-list-item>-->
-                        <!--                            <v-file-input-->
-                        <!--                                    chips-->
-                        <!--                                    label="上传图片"-->
-                        <!--                                    prepend-icon="mdi-upload"-->
-                        <!--                                    shaped-->
-                        <!--                                    accept="image/*"-->
-                        <!--                                    v-model="addForm.goodsAvatar"-->
-                        <!--                            ></v-file-input>-->
-                        <!--                        </v-list-item>-->
                     </v-list>
                     <div class="divider"/>
+                    <!-- 商品类别输入框-->
                     <v-list style="padding: 1rem 0;">
                         <v-list-item>
                             <template #default>
@@ -57,6 +50,7 @@
                         </v-chip-group>
                     </v-list>
                     <div class="divider"/>
+                    <!-- 商品价格信息输入框-->
                     <v-list style="padding: 1rem 0;">
                         <v-list-item>
                             <template #default>
@@ -134,6 +128,7 @@
             }
         },
         created() {
+            // 若是修改已存在商品信息，则现获取商品信息
             if (this.$route.query.goodsId !== undefined) {
                 this.getGoodsDetail(this.$route.query.goodsId)
             }
@@ -142,11 +137,11 @@
             backRoute() {
                 this.$router.back()
             },
+            // 添加商品
             async addGoods(onSale) {
                 this.addForm.goodsState = onSale
                 this.addForm.goodStuff = this.$route.query.good
                 this.addForm.shopId = window.sessionStorage.getItem("shopId")
-                console.log(this.addForm)
                 const {data: res} = await this.$http.post('/goods/add', this.addForm)
                 if (res.code !== 200) {
                     Toast({
@@ -157,6 +152,7 @@
                     await this.$router.push('/goods')
                 }
             },
+            // 获取商品信息
             async getGoodsDetail(id) {
                 const {data: res} = await this.$http.post('/goods/detail', {goodsId: id})
                 if (res.code !== 200) {

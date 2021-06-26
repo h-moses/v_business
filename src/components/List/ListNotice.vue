@@ -3,9 +3,12 @@
         <v-list-item :key="index" v-for="(item,index) in data">
             <template #default>
                 <v-card outlined>
+                    <!-- 交易信息标题-->
                     <v-card-title>{{item.title}}</v-card-title>
                     <v-card-subtitle>
+                        <!-- 订单图片-->
                         <v-img class="card-img" src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"/>
+                        <!-- 订单编号-->
                         <div class="card-subtitle">{{item.subtitle}}</div>
                     </v-card-subtitle>
                 </v-card>
@@ -21,22 +24,22 @@
             return {
                 data: [
                     {
-                        title: 'qwe',
-                        subtitle: '啊是大大撒大大青蛙大苏打阿斯蒂顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶阿斯蒂',
+                        title: '买家已付款',
+                        subtitle: '订单号：1',
                         img: 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png',
                         action_text: '12:45'
                     },
                     {
-                        title: 'qwe',
-                        subtitle: '啊是大大撒大大青蛙大苏打阿斯蒂顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶阿斯蒂',
+                        title: '买家已提货',
+                        subtitle: '订单号：65',
                         img: 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png',
-                        action_text: '12:45'
+                        action_text: '12:50'
                     },
                     {
-                        title: 'qwe',
-                        subtitle: '啊是大大撒大大青蛙大苏打阿斯蒂顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶阿斯蒂',
+                        title: '成功退款',
+                        subtitle: '订单号：104',
                         img: 'https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png',
-                        action_text: '12:45'
+                        action_text: '12:57'
                     }
                 ]
             }
@@ -71,6 +74,10 @@
             .card-img {
                 width: 3rem;
                 height: 3rem;
+            }
+
+            .v-responsive {
+                flex: none;
             }
 
             .card-subtitle {

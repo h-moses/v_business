@@ -1,11 +1,13 @@
 <template>
     <v-container fluid>
         <v-row align="center" class="first-row">
+            <!-- 用户头像-->
             <v-avatar size="36">
                 <img :src="mcAvatar" alt="avatar"/>
             </v-avatar>
             <span>{{mcName}}</span>
         </v-row>
+        <!-- 数据卡片-->
         <v-card color="primary" dark height="170">
             <v-col>
                 <div>今日交易额(元)</div>
@@ -26,12 +28,14 @@
                 </v-col>
             </v-row>
         </v-card>
+        <!-- 常用功能点-->
         <v-row align="center" class="common-action"
                justify="space-around">
             <v-btn text>备货清单</v-btn>
             <v-divider vertical/>
             <v-btn text>退款</v-btn>
         </v-row>
+        <!-- 功能栏-->
         <v-row dense>
             <v-col :key="index" class="function-col" v-for="(item,index) in functionList">
                 <v-btn :key="index" @click="pushRoute(children.name)" class="manage-btn" text v-for="(children,index) in item">
@@ -40,6 +44,7 @@
                 </v-btn>
             </v-col>
         </v-row>
+        <!-- 用户引导-->
         <div class="merchant-learn">商家学习</div>
         <v-list two-line>
             <v-list-item>
@@ -95,11 +100,13 @@
             }
         },
         async created() {
+            // 依次获取商家信息、店铺信息和店铺数据
             await this.getMerchantInfo()
             await this.getShopInfo()
             await this.getData()
         },
         methods: {
+            // 功能栏导航到不同路由
             pushRoute(name) {
                 switch (name) {
                     case '店铺管理':
@@ -122,6 +129,7 @@
                         break
                 }
             },
+            // 获取商家信息
             async getMerchantInfo() {
                 const {data: res} = await this.$http.post('/merchant/info', {mcPhone: window.sessionStorage.getItem("mcPhone")})
                 if (res.code !== 200) {
@@ -130,11 +138,15 @@
                         position: 'bottom'
                     })
                 } else {
+                    // 商家昵称
                     this.mcName = res.data.name
+                    // 商家头像
                     this.mcAvatar = res.data.avatar
+                    // 商家ID
                     window.sessionStorage.setItem("mcId", res.data.id)
                 }
             },
+            // 获取店铺信息
             async getShopInfo() {
                 const {data: res} = await this.$http.post('/shop/info', {mcId: window.sessionStorage.getItem('mcId')})
                 if (res.code !== 200) {
@@ -143,9 +155,11 @@
                         position: 'bottom'
                     })
                 } else {
+                    // 存储店铺ID
                     window.sessionStorage.setItem('shopId', res.data.shopId)
                 }
             },
+            // 获取店铺数据
             async getData() {
                 const {data: res} = await this.$http.post('/index/data', {shopId: window.sessionStorage.getItem("shopId")})
                 if (res.code !== 200) {

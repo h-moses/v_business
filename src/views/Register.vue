@@ -59,6 +59,7 @@
                     mcEmail: ''
                 },
                 showPwd: false,
+                // 表单规则
                 rules: {
                     required: value => !!value || '不能为空',
                     email: value => {
@@ -73,9 +74,11 @@
             }
         },
         methods: {
+            // 返回登录界面
             backLogin() {
                 this.$router.back()
             },
+            // 注册账号
             async register() {
                 const {data: res} = await this.$http.post('merchant/register', this.registerForm)
                 if (res.code === 200) {
@@ -96,7 +99,7 @@
 <style lang="less" scoped>
     .register-title {
         font-family: '微软雅黑', sans-serif;
-        fon t-size: 1.6rem;
+        font-size: 1.6rem;
         font-weight: bold;
         letter-spacing: 0.1rem;
         position: absolute;

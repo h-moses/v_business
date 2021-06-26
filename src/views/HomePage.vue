@@ -1,7 +1,9 @@
 <template>
     <v-app>
+        <!-- 二级路由容器-->
         <router-view/>
         <v-footer app>
+            <!-- 底部导航栏-->
             <bottom-nav v-on:changeRoute="changeRoute"/>
         </v-footer>
     </v-app>

@@ -1,5 +1,6 @@
 <template>
     <v-container fluid>
+        <!-- 系统logo-->
         <v-img
                 alt="star-logo"
                 class="shrink mr-2"
@@ -8,12 +9,15 @@
                 transition="scale-transition"
                 width="100"/>
 
+        <!-- 登录表单-->
         <v-form class="login-form" ref="form" value>
-            <v-input v-model="loginForm.mcPhone">
+            <!-- 手机号码-->
+            <v-input>
                 <v-text-field :rules="[rules.required,rules.phone]" clearable dense label="手机号" prepend-inner-icon="mdi-cellphone"
                               v-model="loginForm.mcPhone"/>
             </v-input>
-            <v-input hint="密码" v-model="loginForm.mcPwd">
+            <!-- 密码-->
+            <v-input hint="密码">
                 <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'"
                               @click:append="showPwd = !showPwd" @keydown.enter="login" clearable
                               dense label="密码"
@@ -55,15 +59,19 @@
             }
         },
         methods: {
+            // 跳转到注册界面
             registerAccount() {
                 this.$router.push('/register')
             },
+            // 登录
             async login() {
                 const {data: res} = await this.$http.post('merchant/login', this.loginForm)
                 if (res.code === 200) {
+                    // 登录成功，则存储手机号码到sessionstorage
                     window.sessionStorage.setItem("mcPhone", this.loginForm.mcPhone)
                     await this.$router.push({path: '/home/main', query: {mcPhone: this.loginForm.mcPhone}})
                 } else {
+                    // 登录失败消息框提示，并重置输入框
                     Toast({
                         message: '密码错误',
                         position: 'bottom'

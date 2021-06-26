@@ -9,16 +9,20 @@
             <v-app-bar-title>店铺管理</v-app-bar-title>
         </v-app-bar>
         <v-main>
+            <!-- 若尚未存在店铺信息-->
             <div class="no-shop" v-if="hasShop === false">
                 <div class="shop-info">尚未存在店铺信息</div>
                 <div class="btn-container">
+                    <!-- 添加对话框-->
                     <v-dialog max-width="500" persistent transition="dialog-bottom-transition" v-model="addDialog">
+                        <!-- 对话框激活器-->
                         <template v-slot:activator="{on, attrs}">
                             <v-btn color="primary" outlined rounded v-bind="attrs" v-on="on">
                                 <v-icon>mdi-plus</v-icon>
                                 添加店铺
                             </v-btn>
                         </template>
+                        <!-- 对话框内容-->
                         <v-card>
                             <v-card-title>
                                 <span class="text-h6">添加店铺</span>
@@ -98,7 +102,9 @@
                     </v-dialog>
                 </div>
             </div>
+            <!-- 若已存在店铺信息-->
             <v-container fluid style="padding: 0" v-else>
+                <!-- 显示店铺信息列表-->
                 <v-list tile>
                     <v-card tile>
                         <v-list-item>
@@ -185,6 +191,7 @@
             backRoute() {
                 this.$router.back()
             },
+            // 获取店铺信息
             async getShopInfo() {
                 const {data: res} = await this.$http.post('/shop/info', {mcId: window.sessionStorage.getItem('mcId')})
                 if (res.code === 200) {
@@ -193,9 +200,11 @@
                     this.shopForm.majorBusiness = res.data.majorBusiness
                     this.shopForm.registerTime = res.data.registerTime
                     this.shopForm.legalPerson = res.data.legalPerson
-                    this.hasShop = true
+                } else {
+                    this.hasShop = false
                 }
             },
+            // 添加店铺信息
             async addShop() {
                 const {data: res} = await this.$http.post('/shop/add', {
                     mcId: window.sessionStorage.getItem('mcId'),

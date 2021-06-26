@@ -1,23 +1,30 @@
 <template>
     <div id="goods-list-item">
         <v-list three-line>
+            <!-- v-for循环，列出所有商品项-->
             <v-list-item :key="item.goodsId" v-for="item in goodsList">
                 <template #default>
+                    <!-- 商品图片-->
                     <v-list-item-avatar>
                         <v-img :src="item.goodsAvatar"/>
                     </v-list-item-avatar>
                     <v-list-item-content>
                         <v-list-item-title>
+                            <!-- 好货标签-->
                             <v-chip class="ma-2" color="#FF6519" label text-color="white" v-if="item.goodStuff === 1">好货</v-chip>
+                            <!-- 商品名称-->
                             <span style="white-space: normal;word-wrap: break-word;">
                                 {{item.goodsName}}
                             </span>
                         </v-list-item-title>
+                        <!-- 商品规格-->
                         <v-list-item-subtitle>规格：{{item.boxSize}}公斤/箱</v-list-item-subtitle>
                         <v-row class="third-row" justify="space-between">
                             ￥{{item.boxPrice}}
+                            <!--操作菜单栏-->
                             <v-menu offset-x top transition="scale-transition"
                             >
+                                <!-- 菜单激活器-->
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-btn icon v-bind="attrs" v-on="on">
                                         <v-icon>mdi-dots-horizontal</v-icon>
@@ -48,10 +55,12 @@
     export default {
         name: "GoodsList",
         props: {
+            // 商品数据
             data: {
                 type: Array,
                 required: true
             },
+            // 商品状态
             state: {
                 type: Number,
                 required: true
@@ -71,9 +80,11 @@
             }
         },
         methods: {
+            // 跳转到添加商品页面
             updateGoods(id) {
                 this.$router.push({path: '/goods/add', query: {goodsId: id}})
             },
+            // 更新商品状态
             async updateState(goodsId, newState) {
                 const {data: res} = await this.$http.post('/goods/state', {goodsId: goodsId, goodsState: newState})
                 if (res.code !== 200) {
@@ -82,8 +93,10 @@
                         position: 'bottom'
                     })
                 }
+                // 重新获取数据
                 this.$emit("getdata")
             },
+            // 删除商品
             async deleteGoods(goodsId) {
                 const {data: res} = await this.$http.post('/goods/delete', {goodsId: goodsId})
                 if (res.code !== 200) {
@@ -92,6 +105,7 @@
                         position: 'bottom'
                     })
                 }
+                // 重新获取数据
                 this.$emit("getdata")
             }
         }

@@ -11,13 +11,16 @@
         <v-divider/>
         <v-main>
             <v-container fluid>
+                <!-- 修改表单-->
                 <v-form>
+                    <!-- 原密码输入框-->
                     <v-input>
                         <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'"
                                       @click:append="showPwd = !showPwd" clearable dense
                                       label="原密码" maxlength="12"
                                       v-model="amendForm.originPwd"/>
                     </v-input>
+                    <!-- 新密码输入框-->
                     <v-input hint="密码">
                         <v-text-field :append-icon="showPwd ? 'mdi-eye' : 'mdi-eye-off'" :rules="[rules.required]" :type="showPwd ? 'text' : 'password'"
                                       @click:append="showPwd = !showPwd" clearable dense
@@ -52,7 +55,9 @@
             }
         },
         methods: {
+            // 修改密码
             async amend() {
+                // 获取数据库密码
                 const {data: res} = await this.$http.post('/merchant/pwd', {mcId: window.sessionStorage.getItem('mcId')})
                 if (res.code !== 200) {
                     Toast({
@@ -60,12 +65,14 @@
                         position: 'bottom'
                     })
                 } else {
+                    // 比对输入原密码是否正确
                     if (this.amendForm.originPwd !== res.data.pwd) {
                         Toast({
                             message: '原密码错误',
                             position: 'bottom'
                         })
                     } else {
+                        // 若原密码正确，则修改密码
                         const {data: res} = await this.$http.post('/merchant/pwd/amend', {
                             mcId: window.sessionStorage.getItem('mcId'),
                             mcPwd: this.amendForm.newPwd
@@ -82,6 +89,7 @@
                             })
                             setTimeout(() => {
                                 this.$router.push('/')
+                                window.sessionStorage.clear()
                             }, 2000)
                         }
                     }
